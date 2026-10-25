@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>BLACK ROCK Enterprise IAM - Users</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+* { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important; }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important;
+            background: #020818;
+            color: #ffffff;
+        }
+
+        /* =========================
+           MAIN APP
+        ========================= */
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+            background: #020818;
+        }
+
+
+        /* =========================
+           LEFT SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 264px;
+            min-height: 100vh;
+            background: #080808;
+            border-right: 1px solid rgba(29,78,216,0.25);
+            padding: 20px 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(29,78,216,0.20);
+        }
+
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid #38bdf8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #38bdf8;
+            font-size: 22px;
+            box-shadow: 0 0 18px rgba(56,189,248,.25);
+        }
+
+
+        .logo-text h2 {
+            margin: 0;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+
+        .logo-text span {
+            display: block;
+            color: #38bdf8;
+            font-size: 9px;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+
+        .menu-title {
+            margin-top: 25px;
+            margin-bottom: 12px;
+            color: #38bdf8;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: #c8c8c8;
+            padding: 13px 15px;
+            margin-bottom: 4px;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: .2s;
+        }
+
+
+        .nav-item:hover {
+            color: white;
+            background: #151515;
+        }
+
+
+        .nav-item.active {
+            color: #080808;
+            background: #f0a000;
+            box-shadow: 0 8px 25px rgba(240,160,0,.25);
+        }
+
+
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 264px;
+            width: calc(100% - 264px);
+            min-height: 100vh;
+            background: #020818;
+        }
+
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .topbar {
+            height: 72px;
+            border-bottom: 1px solid rgba(29,78,216,0.20);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            background: #070707;
+        }
+
+
+        .top-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+
+        .top-button {
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 1px solid #705300;
+            background: rgba(10,20,60,0.55);
+            color: #38bdf8;
+            cursor: pointer;
+        }
+
+
+        .top-button:hover {
+            background: #171000;
+        }
+
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 7px 10px;
+            border: 1px solid #594200;
+            border-radius: 13px;
+        }
+
+
+        .profile-text {
+            text-align: right;
+        }
+
+
+        .profile-text strong {
+            display: block;
+            font-size: 12px;
+        }
+
+
+        .profile-text small {
+            color: #38bdf8;
+            font-size: 8px;
+        }
+
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background: #f2ad00;
+            color: #080808;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            padding: 30px;
+        }
+
+
+        .hero-card {
+            min-height: 210px;
+            border: 1px solid #5a4200;
+            border-radius: 23px;
+            padding: 30px;
+            background:
+                radial-gradient(
+                    circle at 70% 40%,
+                    rgba(151,94,0,.12),
+                    transparent 40%
+                ),
+                #0a0a0a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .hero-labels {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+
+        .label {
+            padding: 7px 13px;
+            border: 1px solid #987000;
+            border-radius: 20px;
+            color: #38bdf8;
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+
+
+        .live {
+            padding: 7px 13px;
+            border-radius: 20px;
+            border: 1px solid #006a50;
+            color: #00d99a;
+            font-size: 9px;
+        }
+
+
+        .hero-card h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+
+        .hero-card p {
+            color: #8c8c8c;
+            max-width: 650px;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+
+        .primary-btn {
+            background: #f0a000;
+            color: #080808;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 22px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(240,160,0,.22);
+        }
+
+
+        .primary-btn:hover {
+            background: #38bdf8;
+        }
+
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 22px;
+        }
+
+
+        .stat-card {
+            background: rgba(10,20,60,0.55);
+            border: 1px solid #4d3900;
+            border-radius: 17px;
+            padding: 22px;
+        }
+
+
+        .stat-title {
+            color: #aaa;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #fff;
+        }
+
+
+        .stat-info {
+            margin-top: 8px;
+            color: #38bdf8;
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           CONTENT CARD
+        ========================= */
+
+        .content-card {
+            background: rgba(10,20,60,0.55);
+            border: 1px solid #4d3900;
+            border-radius: 18px;
+            padding: 24px;
+            margin-top: 22px;
+        }
+
+
+        .card-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+
+        .card-heading h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+
+        .card-heading p {
+            margin: 7px 0 0;
+            color: #777;
+            font-size: 12px;
+        }
+
+
+        .secondary-btn {
+            background: transparent;
+            color: #38bdf8;
+            border: 1px solid rgba(37,99,235,0.30);
+            border-radius: 10px;
+            padding: 10px 16px;
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           USER ROW
+        ========================= */
+
+        .user-row {
+            display: grid;
+            grid-template-columns: 1.4fr 1.8fr 1.2fr 1.5fr 0.8fr 2.1fr;
+            align-items: center;
+            padding: 14px 16px;
+            border-top: 1px solid rgba(121, 80, 57, 0.15);
+            color: #5f4130;
+            font-size: 13px;
+        }
+
+        .action-btn {
+            white-space: nowrap !important;
+            border-radius: 8px !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .deny-btn {
+            background: rgba(220, 38, 38, 0.1) !important;
+            border: 1px solid rgba(220, 38, 38, 0.35) !important;
+            color: #b91c1c !important;
+            font-weight: 700 !important;
+        }
+
+        .deny-btn:hover {
+            background: rgba(220, 38, 38, 0.2) !important;
+            border-color: rgba(220, 38, 38, 0.6) !important;
+        }
+
+        .user-header {
+            color: #38bdf8;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+
+        .role {
+            color: #38bdf8;
+        }
+
+
+        .active {
+            color: #00d99a;
+        }
+
+
+        /* =========================
+           ROLE / PERMISSION
+        ========================= */
+
+        .permission-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 15px;
+        }
+
+
+        .permission-card {
+            border: 1px solid #3c2d00;
+            background: #0c0c0c;
+            padding: 18px;
+            border-radius: 14px;
+        }
+
+
+        .permission-card h3 {
+            margin: 0 0 8px;
+            color: #38bdf8;
+            font-size: 14px;
+        }
+
+
+        .permission-card p {
+            color: #888;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+
+        .permission-list {
+            display: grid;
+            grid-template-columns:
+                repeat(2, 1fr);
+            gap: 10px;
+        }
+
+
+        .permission-item {
+            padding: 13px;
+            border: 1px solid #302500;
+            border-radius: 10px;
+            color: #ccc;
+            font-size: 12px;
+            background: #0b0b0b;
+        }
+
+
+        .permission-item span {
+            color: #00d99a;
+            float: right;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width:1000px) {
+
+            .sidebar {
+                width: 220px;
+            }
+
+            .main {
+                margin-left: 220px;
+                width: calc(100% - 220px);
+            }
+
+            .cards {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .hero-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+        }
+
+
+        @media(max-width:700px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .app {
+                flex-direction: column;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .permission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .permission-list {
+                grid-template-columns: 1fr;
+            }
+
+            .user-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
+
+        /* Match the shared warm-beige theme across directory and RBAC panels. */
+        .hero-card,
+        .stat-card,
+        .content-card {
+            color: var(--text-primary);
+            background: rgba(250, 247, 240, 0.94);
+            border-color: var(--border-glass);
+            box-shadow: 0 12px 32px rgba(73, 54, 35, 0.1);
+        }
+
+        .hero-card .label,
+        .hero-card h1,
+        .hero-card p,
+        .stat-title,
+        .stat-number,
+        .stat-info,
+        .card-heading h2,
+        .card-heading p,
+        .user-row,
+        .user-row > div {
+            color: #5f4130;
+        }
+
+        .user-row {
+            border-color: #e9dfd1;
+        }
+
+        .user-name,
+        .user-email,
+        .mfa-badge {
+            color: #5f4130;
+        }
+
+        .mfa-badge {
+            border: 1px solid #e9dfd1;
+            border-radius: 12px;
+            background: #f1e9dc;
+            padding: 3px 8px;
+            font-size: 11px;
+        }
+
+        .user-header {
+            color: #795039;
+        }
+
+        .role {
+            color: #795039;
+        }
+
+        .active,
+        .permission-item span {
+            color: #41603b;
+        }
+
+        .permission-card,
+        .permission-item {
+            color: var(--text-primary);
+            background: #f1e9dc;
+            border-color: var(--border-glass);
+        }
+
+        .permission-card h3,
+        .permission-card p {
+            color: #5f4130;
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =========================
+         LEFT SIDE
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo-area">
+
+            <div class="logo-icon">
+                
+            </div>
+
+            <div class="logo-text">
+
+                <h2>BLACK ROCK</h2>
+
+                
+
+            </div>
+
+        </div>
+
+
+        <div class="menu-title">
+        NAVIGATION
+    </div>
+
+
+        <a href="index.html"
+           class="nav-item">
+
+            <span class="nav-icon"></span>
+
+            Dashboard
+
+        </a>
+
+
+        <a href="user-role.html"
+           class="nav-item active">
+
+            <span class="nav-icon"></span>
+
+            Users Directory
+
+        </a>
+
+
+        <a href="roles.html"
+           class="nav-item ">
+
+            <span class="nav-icon"></span>
+
+            Roles & RBAC
+
+        </a>
+
+
+        <a href="permissions.html"
+           class="nav-item">
+
+            <span class="nav-icon"></span>
+
+            Permissions Catalog
+
+        </a>
+
+
+        <a href="access-management.html"
+           class="nav-item ">
+
+            <span class="nav-icon"></span>
+
+            Access Management
+
+        </a>
+
+
+        <a href="audit-trail.html"
+           class="nav-item ">
+
+            <span class="nav-icon"></span>
+
+            Audit Trail
+
+        </a>
+
+
+        <a href="api-architecture.html"
+           class="nav-item ">
+
+            <span class="nav-icon">›_</span>
+
+            API & System
+
+        </a>
+
+
+    
+        <div class="sidebar-footer" style="margin-top:auto;padding-top:16px;">
+            <a class="sign-out" href="login.html" onclick="endDemoSession()" aria-label="Sign out">
+                <span class="sign-out-icon">↪</span>
+                <span>Sign Out</span>
+            </a>
+        </div>
+    </aside>
+
+
+
+    <!-- =========================
+         RIGHT SIDE
+    ========================== -->
+
+    <main class="main">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+            <div style="display:flex;align-items:center;gap:14px;">
+                <a href="index.html" class="top-back-btn">← Dashboard</a>
+                <div class="top-title">BLACK ROCK</div>
+            </div>
+
+
+            <div class="top-actions">
+
+                <button class="top-button" onclick="window.location.href='api-architecture.html'" title="Inspect System API & Architecture">API Inspector</button>
+
+                <button class="top-button" onclick="switchSessionRole()" title="Switch active session role"> Switch Role</button>
+
+
+                <div class="user-profile">
+
+                    <div class="profile-text">
+
+                        <strong>
+                            Alexander Vance
+                        </strong>
+
+                        <small>
+                            GLOBAL_ADMIN
+                        </small>
+
+                    </div>
+
+                    <div class="avatar">
+                        A
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <section class="content">
+
+
+            <!-- TITLE -->
+
+            <div class="hero-card">
+
+                <div>
+
+                    <div class="hero-labels">
+
+                        <span class="label">
+                            IAM USER MANAGEMENT
+                        </span>
+
+                        <span class="live">
+                            ● Live Gateway Active
+                        </span>
+
+                    </div>
+
+
+                    <h1>
+                        Users & Access Management
+                    </h1>
+
+
+                    <p>
+                        Manage users, administrators,
+                        roles and permissions from the
+                        centralized IAM control center.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="addUser()">
+
+                    + Add User
+
+                </button>
+
+            </div>
+
+
+
+            <!-- SUMMARY -->
+
+            <div class="cards">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+                        TOTAL USERS
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="totalUsers">
+
+                        0
+
+                    </div>
+
+                    <div class="stat-info">
+                        ● Active Users
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+                        ADMIN USERS
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="totalAdmins">
+
+                        2
+
+                    </div>
+
+                    <div class="stat-info">
+                        GLOBAL ADMIN
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+                        TOTAL ROLES
+                    </div>
+
+                    <div class="stat-number">
+                        4
+                    </div>
+
+                    <div class="stat-info">
+                        RBAC Enabled
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+                        PERMISSIONS
+                    </div>
+
+                    <div class="stat-number">
+                        12
+                    </div>
+
+                    <div class="stat-info">
+                        Access Policies
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- USERS -->
+
+            <div class="content-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            Users Directory
+                        </h2>
+
+                        <p>
+                            Manage registered IAM users
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="secondary-btn"
+                        onclick="addUser()">
+
+                        + Add User
+
+                    </button>
+
+                </div>
+
+
+                <div class="user-row user-header">
+
+                    <div>USER</div>
+                    <div>EMAIL</div>
+                    <div>MFA PHONE</div>
+                    <div>ROLE</div>
+                    <div>STATUS</div>
+                    <div>ACTION</div>
+
+                </div>
+
+
+                <div id="usersList"></div>
+
+            </div>
+
+
+
+            <!-- ADMIN -->
+
+            <div class="content-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            Administrators
+                        </h2>
+
+                        <p>
+                            System administrator accounts with elevated control
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="user-row user-header" style="grid-template-columns: 2fr 2.5fr 1.5fr 1fr 1.5fr;">
+                    <div>ADMINISTRATOR</div>
+                    <div>EMAIL</div>
+                    <div>ROLE</div>
+                    <div>STATUS</div>
+                    <div>PRIVILEGE LEVEL</div>
+                </div>
+
+                <div class="user-row" style="grid-template-columns: 2fr 2.5fr 1.5fr 1fr 1.5fr;">
+                    <div style="font-weight:600;color:#30271f;">
+                        Alexander Vance
+                    </div>
+                    <div style="color:#5f5143;">
+                        admin@blackrock.com
+                    </div>
+                    <div class="role" style="font-weight:700;">
+                        GLOBAL_ADMIN
+                    </div>
+                    <div class="active" style="color:#287554;">
+                        ● Active
+                    </div>
+                    <div style="color:#287554;font-weight:700;">
+                        Full System Control
+                    </div>
+                </div>
+
+                <div class="user-row" style="grid-template-columns: 2fr 2.5fr 1.5fr 1fr 1.5fr;">
+                    <div style="font-weight:600;color:#30271f;">
+                        IAM Administrator
+                    </div>
+                    <div style="color:#5f5143;">
+                        administrator@blackrock.com
+                    </div>
+                    <div class="role" style="font-weight:700;">
+                        ADMIN
+                    </div>
+                    <div class="active" style="color:#287554;">
+                        ● Active
+                    </div>
+                    <div style="color:#795039;font-weight:700;">
+                        IAM Management Access
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ROLES -->
+
+            <div class="content-card"
+                 id="roles">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            Roles & RBAC
+                        </h2>
+
+                        <p>
+                            Role based access control
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="permission-grid">
+
+
+                    <div class="permission-card">
+
+                        <h3>
+                            GLOBAL_ADMIN
+                        </h3>
+
+                        <p>
+                            Complete IAM system access
+                            including users, roles and
+                            permissions.
+                        </p>
+
+                    </div>
+
+
+                    <div class="permission-card">
+
+                        <h3>
+                            ADMIN
+                        </h3>
+
+                        <p>
+                            Manage users and assigned
+                            administrative resources.
+                        </p>
+
+                    </div>
+
+
+                    <div class="permission-card">
+
+                        <h3>
+                            MANAGER
+                        </h3>
+
+                        <p>
+                            Manage team users and
+                            approved resources.
+                        </p>
+
+                    </div>
+
+
+                    <div class="permission-card">
+
+                        <h3>
+                            USER
+                        </h3>
+
+                        <p>
+                            Basic application and
+                            assigned resource access.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PERMISSIONS -->
+
+            <div class="content-card"
+                 id="permissions">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            Permissions Catalog
+                        </h2>
+
+                        <p>
+                            IAM system permissions
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="permission-list">
+
+
+                    <div class="permission-item">
+                        Create User
+                        <span>✓</span>
+                    </div>
+
+
+                    <div class="permission-item">
+                        Edit User
+                        <span>✓</span>
+                    </div>
+
+
+                    <div class="permission-item">
+                        Delete User
+                        <span>✓</span>
+                    </div>
+
+
+                    <div class="permission-item">
+                        Create Role
+                        <span>✓</span>
+                    </div>
+
+
+                    <div class="permission-item">
+                        Edit Role
+                        <span>✓</span>
+                    </div>
+
+
+                    <div class="permission-item">
+                        Delete Role
+                        <span>✓</span>
+                    </div>
+
+
+                    <div class="permission-item">
+                        Manage Access
+                        <span>✓</span>
+                    </div>
+
+
+                    <div class="permission-item">
+                        View Audit Logs
+                        <span>✓</span>
+                    </div>
+
+
+                    <div class="permission-item">
+                        Approve Access
+                        <span>✓</span>
+                    </div>
+
+
+                    <div class="permission-item">
+                        API Access
+                        <span>✓</span>
+                    </div>
+
+
+                    <div class="permission-item">
+                        View Users
+                        <span>✓</span>
+                    </div>
+
+
+                    <div class="permission-item">
+                        View Roles
+                        <span>✓</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<script src="twilio-mfa.js?v=20261024_03"></script>
+<script src="rbac.js"></script>
+<script>
+
+function normalizeRole(role) {
+    if (!role) return "USER";
+    const r = String(role).trim().toUpperCase().replace(/[\s-]+/g, '_');
+    if (r.includes("GLOBAL")) return "GLOBAL_ADMIN";
+    if (r === "ADMIN") return "ADMIN";
+    if (r.includes("MANAGER")) return "MANAGER";
+    if (r.includes("DEV")) return "DEVELOPER";
+    if (r.includes("SEC")) return "SECURITY_ANALYST";
+    if (r === "USER") return "USER";
+    return "USER";
+}
+
+function getAllUsers() {
+    let users = [];
+    try {
+        const stored = localStorage.getItem("blackrockUsers") || localStorage.getItem("users");
+        if (stored) {
+            users = JSON.parse(stored);
+        }
+    } catch (e) {
+        users = [];
+    }
+
+    if (!users || users.length === 0) {
+        users = [
+            { name: "Naveen", email: "naveen124@gmail.com", phoneNumber: "+1234567890", role: "GLOBAL_ADMIN", status: "Active", mfa: "Enabled" },
+            { name: "Alexander Vance", email: "admin@blackrock.com", phoneNumber: "+1234567890", role: "ADMIN", status: "Active", mfa: "Enabled" },
+            { name: "Arun Kumar", email: "arun@blackrock.com", phoneNumber: "+919876543210", role: "DEVELOPER", status: "Active", mfa: "Enabled" },
+            { name: "Priya Sharma", email: "priya@blackrock.com", phoneNumber: "+919812345678", role: "MANAGER", status: "Active", mfa: "Disabled" },
+            { name: "Rahul Dev", email: "rahul@blackrock.com", phoneNumber: "+15551234567", role: "SECURITY_ANALYST", status: "Active", mfa: "Enabled" },
+            { name: "Karthik Raj", email: "karthik@blackrock.com", phoneNumber: "+919988776655", role: "USER", status: "Active", mfa: "Enabled" }
+        ];
+        saveAllUsers(users);
+    } else {
+        // Sanitize roles in memory so display is always 100% accurate
+        users.forEach(u => {
+            u.role = normalizeRole(u.role);
+        });
+    }
+    return users;
+}
+
+function saveAllUsers(users) {
+    if (Array.isArray(users)) {
+        users.forEach(u => {
+            u.role = normalizeRole(u.role);
+        });
+    }
+    localStorage.setItem("blackrockUsers", JSON.stringify(users));
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+function promoteToFullAccess(index) {
+    const users = getAllUsers();
+    if (index >= 0 && index < users.length) {
+        users[index].role = "GLOBAL_ADMIN";
+        saveAllUsers(users);
+        loadUsers();
+
+        if (window.TwilioMFA) {
+            TwilioMFA.logAudit(
+                "Alexander Vance",
+                "Promoted User to GLOBAL_ADMIN (" + users[index].name + ")",
+                "User Directory",
+                "SUCCESS"
+            );
+        }
+    }
+}
+
+function updateUserRole(index, newRole) {
+    const users = getAllUsers();
+    if (index >= 0 && index < users.length) {
+        const cleanRole = normalizeRole(newRole);
+        users[index].role = cleanRole;
+        saveAllUsers(users);
+        loadUsers();
+
+        const currentUser = sessionStorage.getItem("honUsername") || "Alexander Vance";
+        if (currentUser.toLowerCase().includes(users[index].name.toLowerCase())) {
+            sessionStorage.setItem("honUserRole", cleanRole);
+            if (window.RBAC && typeof window.RBAC.updateProfileCard === 'function') {
+                window.RBAC.updateProfileCard();
+            }
+        }
+
+        if (window.TwilioMFA) {
+            TwilioMFA.logAudit(
+                "Alexander Vance",
+                "Updated Role for " + users[index].name + " to " + cleanRole,
+                "Role Management",
+                "SUCCESS"
+            );
+        }
+    }
+}
+
+function loadUsers() {
+    const users = getAllUsers();
+    const countEl = document.getElementById("totalUsers");
+    if (countEl) countEl.textContent = users.length;
+    const adminCountEl = document.getElementById("totalAdmins");
+    if (adminCountEl) {
+        const admins = users.filter(u => normalizeRole(u.role).includes('ADMIN'));
+        adminCountEl.textContent = admins.length;
+    }
+
+    const list = document.getElementById("usersList");
+    if (!list) return;
+
+    if (users.length === 0) {
+        list.innerHTML = `
+            <div class="user-row" style="text-align:center;padding:25px;grid-template-columns:1fr;color:#75695b;">
+                No registered users in directory. Click "+ Add User" to create one.
+            </div>
+        `;
+        return;
+    }
+
+    list.innerHTML = users.map((user, idx) => {
+        const normRole = normalizeRole(user.role);
+        const mfaBadge = user.mfa === 'Disabled'
+            ? `<span class="mfa-badge">MFA Off</span>`
+            : `<span class="mfa-badge">${escapeHtml(user.phoneNumber || 'Enabled')}</span>`;
+
+        const isFullAccess = normRole === 'GLOBAL_ADMIN';
+        const promoteBtn = isFullAccess
+            ? '<span style="color:#287554;font-size:12px;font-weight:700;white-space:nowrap;">Full Access</span>'
+            : `<button class="action-btn" onclick="promoteToFullAccess(${idx})" style="padding:6px 12px;font-size:11px;background:rgba(121,80,57,0.18);border:1px solid rgba(121,80,57,0.45);color:#795039;font-weight:700;white-space:nowrap;border-radius:6px;cursor:pointer;">Full Access</button>`;
+
+        const actionHtml = `
+            <div style="display:flex;gap:8px;align-items:center;white-space:nowrap;">
+                ${promoteBtn}
+                <button class="action-btn deny-btn" onclick="deleteUser(${idx})" style="padding:6px 12px;font-size:11px;white-space:nowrap;border-radius:6px;cursor:pointer;">Delete</button>
+            </div>
+        `;
+
+        return `
+            <div class="user-row">
+                <div class="user-name" style="font-weight:600;color:#30271f;">
+                    ${escapeHtml(user.name || "User")}
+                </div>
+                <div class="user-email" style="overflow:hidden;text-overflow:ellipsis;color:#5f5143;">
+                    ${escapeHtml(user.email || "-")}
+                </div>
+                <div>
+                    ${mfaBadge}
+                </div>
+                <div class="role">
+                    <select onchange="updateUserRole(${idx}, this.value)" style="background:#fffdf8;border:1px solid #dfd2bf;color:#795039;font-weight:700;padding:5px 8px;border-radius:8px;font-size:12px;cursor:pointer;">
+                        <option value="GLOBAL_ADMIN" ${normRole === 'GLOBAL_ADMIN' ? 'selected' : ''}>GLOBAL_ADMIN</option>
+                        <option value="ADMIN" ${normRole === 'ADMIN' ? 'selected' : ''}>ADMIN</option>
+                        <option value="MANAGER" ${normRole === 'MANAGER' ? 'selected' : ''}>MANAGER</option>
+                        <option value="DEVELOPER" ${normRole === 'DEVELOPER' ? 'selected' : ''}>DEVELOPER</option>
+                        <option value="SECURITY_ANALYST" ${normRole === 'SECURITY_ANALYST' ? 'selected' : ''}>SECURITY ANALYST</option>
+                        <option value="USER" ${normRole === 'USER' ? 'selected' : ''}>USER</option>
+                    </select>
+                </div>
+                <div class="active" style="color:#287554;">
+                    ● Active
+                </div>
+                <div>
+                    ${actionHtml}
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function addUser() {
+    window.location.href = "createuser.html";
+}
+
+function deleteUser(index) {
+    const users = getAllUsers();
+    if (index >= 0 && index < users.length) {
+        const removed = users.splice(index, 1)[0];
+        saveAllUsers(users);
+        loadUsers();
+
+        if (window.TwilioMFA) {
+            TwilioMFA.logAudit(
+                "Alexander Vance",
+                `User Deleted (${removed.name} - ${removed.role})`,
+                "User Directory",
+                "WARNING"
+            );
+        }
+    }
+}
+
+loadUsers();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,1816 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>BLACK ROCK Enterprise IAM - Permissions</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+* { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important; }
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important;
+    background: #020818;
+    color: white;
+}
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+
+    width: 264px;
+    min-height: 100vh;
+
+    background: #080808;
+
+    border-right: 1px solid rgba(29,78,216,0.25);
+
+    padding: 20px;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid rgba(29,78,216,0.20);
+}
+
+
+.logo-icon {
+
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid #38bdf8;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    color: #38bdf8;
+
+}
+
+
+.logo h2 {
+    margin: 0;
+}
+
+
+.logo small {
+
+    color: #38bdf8;
+
+    font-size: 9px;
+
+}
+
+
+.menu-title {
+
+    color: #38bdf8;
+
+    font-size: 11px;
+
+    margin: 25px 0 12px;
+
+}
+
+
+.nav {
+
+    display: block;
+
+    padding: 13px 15px;
+
+    margin-bottom: 5px;
+
+    color: #bbb;
+
+    text-decoration: none;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+
+}
+
+
+.nav:hover {
+
+    background: #151515;
+
+    color: white;
+
+}
+
+
+.nav.active {
+
+    background: #f0a000;
+
+    color: #080808;
+
+    box-shadow:
+        0 8px 25px
+        rgba(240,160,0,.25);
+
+}
+
+
+/* ================= MAIN ================= */
+
+.main {
+
+    margin-left: 264px;
+
+    width: calc(100% - 264px);
+
+    min-height: 100vh;
+
+}
+
+
+.topbar {
+
+    height: 72px;
+
+    border-bottom: 1px solid rgba(29,78,216,0.20);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 0 28px;
+
+    background: #070707;
+
+}
+
+
+.top-buttons {
+
+    display: flex;
+
+    gap: 10px;
+
+}
+
+
+.top-button {
+
+    padding: 10px 17px;
+
+    border-radius: 10px;
+
+    border: 1px solid #705300;
+
+    background: rgba(10,20,60,0.55);
+
+    color: #38bdf8;
+
+}
+
+
+/* ================= CONTENT ================= */
+
+.content {
+
+    padding: 30px;
+
+}
+
+
+/* ================= HERO ================= */
+
+.hero {
+
+    border: 1px solid #5a4200;
+
+    border-radius: 22px;
+
+    padding: 30px;
+
+    background: #020818;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.label {
+
+    color: #38bdf8;
+
+    border: 1px solid #8c6800;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.hero h1 {
+
+    font-size: 32px;
+
+    margin: 18px 0 8px;
+
+}
+
+
+.hero p {
+
+    color: #888;
+
+    font-size: 13px;
+
+}
+
+
+.add-btn {
+
+    background: #f0a000;
+
+    color: #080808;
+
+    border: none;
+
+    border-radius: 11px;
+
+    padding: 14px 22px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.add-btn:hover {
+
+    background: #38bdf8;
+
+}
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, .78);
+}
+
+.modal-backdrop[hidden] {
+    display: none;
+}
+
+.permission-modal {
+    width: min(100%, 480px);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    border: 1px solid #5a4200;
+    border-radius: 18px;
+    background: #faf7f0;
+    color: var(--text-primary);
+    box-shadow: 0 20px 60px rgba(73, 54, 35, .22);
+}
+
+.permission-modal h2 {
+    margin: 0 0 20px;
+}
+
+.permission-form {
+    display: grid;
+    gap: 14px;
+}
+
+.permission-form label {
+    display: grid;
+    gap: 7px;
+    color: var(--text-primary);
+    font-size: 12px;
+}
+
+.permission-form input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #5c4500;
+    border-radius: 9px;
+    outline: none;
+    background: #020818;
+    color: white;
+}
+
+.permission-form input:focus {
+    border-color: #38bdf8;
+}
+
+.permission-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.permission-form-actions button {
+    padding: 10px 16px;
+    border: 1px solid #705300;
+    border-radius: 9px;
+    background: #101629;
+    color: #ddd;
+    cursor: pointer;
+}
+
+.permission-form-actions button[type="submit"] {
+    border: 0;
+    background: #f0a000;
+    color: #080808;
+    font-weight: bold;
+}
+
+.permission-form-error {
+    margin: 0;
+    color: #ff9b9b;
+    font-size: 12px;
+}
+
+
+/* ================= SUMMARY ================= */
+
+.summary {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-top: 22px;
+
+}
+
+
+.summary-card {
+
+    background: rgba(10,20,60,0.55);
+
+    border: 1px solid #4d3900;
+
+    border-radius: 17px;
+
+    padding: 22px;
+
+}
+
+
+.summary-title {
+
+    color: #999;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.summary-number {
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    margin-top: 13px;
+
+}
+
+
+.summary-info {
+
+    color: #38bdf8;
+
+    font-size: 11px;
+
+    margin-top: 7px;
+
+}
+
+
+/* ================= PERMISSION CATALOG ================= */
+
+.catalog {
+
+    margin-top: 22px;
+
+    background: rgba(10,20,60,0.55);
+
+    border: 1px solid #4d3900;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+}
+
+
+.catalog-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.catalog-header h2 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+}
+
+
+.catalog-header p {
+
+    color: #777;
+
+    font-size: 12px;
+
+}
+
+
+/* ================= SEARCH ================= */
+
+.search {
+
+    width: 250px;
+
+    padding: 11px 15px;
+
+    border-radius: 10px;
+
+    border: 1px solid #5c4500;
+
+    background: #020818;
+
+    color: white;
+
+    outline: none;
+
+}
+
+
+.search:focus {
+
+    border-color: #38bdf8;
+
+}
+
+
+/* ================= TABLE ================= */
+
+.permission-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin-top: 22px;
+
+}
+
+
+.permission-table th {
+
+    text-align: left;
+
+    color: #38bdf8;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    padding: 15px;
+
+    border-bottom: 1px solid #3b2c00;
+
+}
+
+
+.permission-table td {
+
+    padding: 16px 15px;
+
+    border-bottom: 1px solid #211b08;
+
+    font-size: 13px;
+
+    color: #ccc;
+
+}
+
+
+.permission-name {
+
+    color: white;
+
+    font-weight: bold;
+
+}
+
+
+.permission-code {
+
+    color: #38bdf8;
+
+    font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important;
+
+}
+
+
+.category {
+
+    color: #aaa;
+
+}
+
+
+.allowed {
+
+    color: #00d99a;
+
+}
+
+
+.badge {
+
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    border: 1px solid #5a4500;
+
+    color: #38bdf8;
+
+    font-size: 10px;
+
+}
+
+
+/* ================= PERMISSION CARDS ================= */
+
+.permission-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+    margin-top: 22px;
+
+}
+
+
+.permission-card {
+
+    background: #0b0b0b;
+
+    border: 1px solid #382b00;
+
+    border-radius: 14px;
+
+    padding: 18px;
+
+}
+
+
+.permission-card:hover {
+
+    border-color: #c9ae8d;
+
+}
+
+
+.permission-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    border: 1px solid #765700;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #38bdf8;
+
+    margin-bottom: 14px;
+
+}
+
+
+.permission-card h3 {
+
+    margin: 0;
+
+    font-size: 14px;
+
+}
+
+
+.permission-card p {
+
+    color: #777;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+}
+
+
+.card-status {
+
+    color: #00d99a;
+
+    font-size: 10px;
+
+}
+
+/* Use the shared warm-beige palette for the catalog surfaces. */
+.catalog {
+    color: var(--text-primary);
+    background: rgba(250, 247, 240, 0.94);
+    border-color: var(--border-glass);
+    box-shadow: 0 12px 32px rgba(73, 54, 35, 0.1);
+}
+
+.permission-card {
+    color: var(--text-primary);
+    background: #f1e9dc;
+    border-color: var(--border-glass);
+}
+
+.permission-card h3,
+.permission-card p,
+.permission-card .card-status {
+    color: var(--text-primary);
+}
+
+.permission-card .card-status {
+    color: #795039;
+}
+
+.permission-icon {
+    color: #795039;
+    border-color: var(--border-glass);
+    background: #faf7f0;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px) {
+
+    .sidebar {
+
+        width: 220px;
+
+    }
+
+    .main {
+
+        margin-left: 220px;
+
+        width: calc(100% - 220px);
+
+    }
+
+    .summary {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+    .permission-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media(max-width:700px) {
+
+    .sidebar {
+
+        position: relative;
+
+        width: 100%;
+
+        min-height: auto;
+
+    }
+
+    .main {
+
+        margin-left: 0;
+
+        width: 100%;
+
+    }
+
+    .app {
+
+        flex-direction: column;
+
+    }
+
+    .summary {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .permission-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .hero {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+
+    }
+
+    .catalog-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+
+    }
+
+    .search {
+
+        width: 100%;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- ================= LEFT SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+
+<div class="logo">
+
+    <div class="logo-icon">
+        
+    </div>
+
+    <div>
+
+        <h2>BLACK ROCK</h2>
+
+        
+
+    </div>
+
+</div>
+
+
+<div class="menu-title">
+        NAVIGATION
+    </div>
+
+
+<a href="index.html"
+   class="nav">
+
+     &nbsp; Dashboard
+
+</a>
+
+
+<a href="user-role.html"
+   class="nav">
+
+     &nbsp; Users Directory
+
+</a>
+
+
+<a href="roles.html"
+   class="nav">
+
+     &nbsp; Roles & RBAC
+
+</a>
+
+
+<a href="permissions.html"
+   class="nav active">
+
+     &nbsp; Permissions Catalog
+
+</a>
+
+
+<a href="access-management.html"
+   class="nav">
+
+     &nbsp; Access Management
+
+</a>
+
+
+<a href="audit-trail.html"
+   class="nav">
+
+     &nbsp; Audit Trail
+
+</a>
+
+
+<a href="api-architecture.html"
+   class="nav">
+
+    ›_ &nbsp; API & Architecture
+
+</a>
+
+
+
+        <div class="sidebar-footer" style="margin-top:auto;padding-top:16px;">
+            <a class="sign-out" href="login.html" onclick="endDemoSession()" aria-label="Sign out">
+                <span class="sign-out-icon">↪</span>
+                <span>Sign Out</span>
+            </a>
+        </div>
+    </aside>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+
+<!-- TOP BAR -->
+
+<header class="topbar">
+    <div style="display:flex;align-items:center;gap:14px;">
+        <a href="index.html" class="top-back-btn">← Dashboard</a>
+        <strong>BLACK ROCK</strong>
+    </div>
+
+
+    <div class="top-buttons">
+
+        <button class="top-button" onclick="window.location.href='api-architecture.html'" title="Inspect System API & Architecture">API Inspector</button>
+
+        <button class="top-button" onclick="switchSessionRole()" title="Switch active session role"> Switch Role</button>
+
+    </div>
+
+</header>
+
+
+
+<section class="content">
+
+
+<!-- ================= HERO ================= -->
+
+<div class="hero">
+
+
+<div>
+
+    <span class="label">
+        IAM GOVERNANCE
+    </span>
+
+
+    <h1>
+        Permissions Catalog
+    </h1>
+
+
+    <p>
+        Manage and control permissions assigned
+        to users and roles across the IAM system.
+    </p>
+
+</div>
+
+
+<button
+    type="button"
+    class="add-btn"
+    id="addPermissionButton">
+
+    + Add Permission
+
+</button>
+
+
+</div>
+
+
+
+<!-- ================= SUMMARY ================= -->
+
+<div class="summary">
+
+
+<div class="summary-card">
+
+    <div class="summary-title">
+        TOTAL PERMISSIONS
+    </div>
+
+    <div class="summary-number">
+        <span id="totalPermissionCount">12</span>
+    </div>
+
+    <div class="summary-info">
+        Active Permissions
+    </div>
+
+</div>
+
+
+<div class="summary-card">
+
+    <div class="summary-title">
+        USER PERMISSIONS
+    </div>
+
+    <div class="summary-number">
+        4
+    </div>
+
+    <div class="summary-info">
+        User Management
+    </div>
+
+</div>
+
+
+<div class="summary-card">
+
+    <div class="summary-title">
+        ROLE PERMISSIONS
+    </div>
+
+    <div class="summary-number">
+        4
+    </div>
+
+    <div class="summary-info">
+        RBAC Controls
+    </div>
+
+</div>
+
+
+<div class="summary-card">
+
+    <div class="summary-title">
+        SYSTEM PERMISSIONS
+    </div>
+
+    <div class="summary-number">
+        4
+    </div>
+
+    <div class="summary-info">
+        System Controls
+    </div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- ================= CATALOG ================= -->
+
+<div class="catalog">
+
+
+<div class="catalog-header">
+
+<div>
+
+    <h2>
+        Permission Catalog
+    </h2>
+
+    <p>
+        Available IAM permissions
+    </p>
+
+</div>
+
+
+<input
+    type="text"
+    id="searchInput"
+    class="search"
+    placeholder="Search permissions..."
+    onkeyup="searchPermissions()">
+
+
+</div>
+
+
+
+<table class="permission-table">
+
+<thead>
+
+<tr>
+
+<th>
+    PERMISSION
+</th>
+
+<th>
+    CODE
+</th>
+
+<th>
+    CATEGORY
+</th>
+
+<th>
+    ACCESS
+</th>
+
+<th>
+    STATUS
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="permissionTable">
+<tr>
+<td class="permission-name">Complete Full Access</td>
+<td class="permission-code">IAM_FULL_ACCESS</td>
+<td class="category">Administration</td>
+<td class="allowed">Full Access</td>
+<td><span class="badge" style="background:rgba(16,185,129,0.2);color:#34d399;border-color:rgba(16,185,129,0.4);">ACTIVE (ALL)</span></td>
+</tr>
+
+
+
+<tr>
+
+<td class="permission-name">
+    Create User
+</td>
+
+<td class="permission-code">
+    USER_CREATE
+</td>
+
+<td class="category">
+    Users
+</td>
+
+<td class="allowed">
+    Create
+</td>
+
+<td>
+    <span class="badge">
+        ACTIVE
+    </span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="permission-name">
+    View User
+</td>
+
+<td class="permission-code">
+    USER_READ
+</td>
+
+<td class="category">
+    Users
+</td>
+
+<td class="allowed">
+    Read
+</td>
+
+<td>
+    <span class="badge">
+        ACTIVE
+    </span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="permission-name">
+    Edit User
+</td>
+
+<td class="permission-code">
+    USER_UPDATE
+</td>
+
+<td class="category">
+    Users
+</td>
+
+<td class="allowed">
+    Update
+</td>
+
+<td>
+    <span class="badge">
+        ACTIVE
+    </span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="permission-name">
+    Delete User
+</td>
+
+<td class="permission-code">
+    USER_DELETE
+</td>
+
+<td class="category">
+    Users
+</td>
+
+<td class="allowed">
+    Delete
+</td>
+
+<td>
+    <span class="badge">
+        ACTIVE
+    </span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="permission-name">
+    Create Role
+</td>
+
+<td class="permission-code">
+    ROLE_CREATE
+</td>
+
+<td class="category">
+    Roles
+</td>
+
+<td class="allowed">
+    Create
+</td>
+
+<td>
+    <span class="badge">
+        ACTIVE
+    </span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="permission-name">
+    View Role
+</td>
+
+<td class="permission-code">
+    ROLE_READ
+</td>
+
+<td class="category">
+    Roles
+</td>
+
+<td class="allowed">
+    Read
+</td>
+
+<td>
+    <span class="badge">
+        ACTIVE
+    </span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="permission-name">
+    Edit Role
+</td>
+
+<td class="permission-code">
+    ROLE_UPDATE
+</td>
+
+<td class="category">
+    Roles
+</td>
+
+<td class="allowed">
+    Update
+</td>
+
+<td>
+    <span class="badge">
+        ACTIVE
+    </span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="permission-name">
+    Delete Role
+</td>
+
+<td class="permission-code">
+    ROLE_DELETE
+</td>
+
+<td class="category">
+    Roles
+</td>
+
+<td class="allowed">
+    Delete
+</td>
+
+<td>
+    <span class="badge">
+        ACTIVE
+    </span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="permission-name">
+    Manage Access
+</td>
+
+<td class="permission-code">
+    ACCESS_MANAGE
+</td>
+
+<td class="category">
+    Access
+</td>
+
+<td class="allowed">
+    Manage
+</td>
+
+<td>
+    <span class="badge">
+        ACTIVE
+    </span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="permission-name">
+    Approve Access
+</td>
+
+<td class="permission-code">
+    ACCESS_APPROVE
+</td>
+
+<td class="category">
+    Access
+</td>
+
+<td class="allowed">
+    Approve
+</td>
+
+<td>
+    <span class="badge">
+        ACTIVE
+    </span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="permission-name">
+    View Audit Logs
+</td>
+
+<td class="permission-code">
+    AUDIT_READ
+</td>
+
+<td class="category">
+    Audit
+</td>
+
+<td class="allowed">
+    Read
+</td>
+
+<td>
+    <span class="badge">
+        ACTIVE
+    </span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="permission-name">
+    API Access
+</td>
+
+<td class="permission-code">
+    API_ACCESS
+</td>
+
+<td class="category">
+    API
+</td>
+
+<td class="allowed">
+    Access
+</td>
+
+<td>
+    <span class="badge">
+        ACTIVE
+    </span>
+
+</td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+</div>
+
+
+
+<!-- ================= PERMISSION GROUPS ================= -->
+
+<div class="catalog">
+
+<h2>
+    Permission Categories
+</h2>
+
+<p style="color:#777;font-size:12px;">
+    Permissions grouped by IAM functionality
+</p>
+
+
+<div class="permission-grid">
+
+
+<div class="permission-card">
+
+<div class="permission-icon">
+    
+</div>
+
+<h3>
+    User Management
+</h3>
+
+<p>
+Create, view, update and delete
+IAM users.
+</p>
+
+<div class="card-status">
+    ● 4 Permissions
+</div>
+
+</div>
+
+
+
+<div class="permission-card">
+
+<div class="permission-icon">
+    
+</div>
+
+<h3>
+    Role Management
+</h3>
+
+<p>
+Create, view, update and delete
+IAM roles.
+</p>
+
+<div class="card-status">
+    ● 4 Permissions
+</div>
+
+</div>
+
+
+
+<div class="permission-card">
+
+<div class="permission-icon">
+    
+</div>
+
+<h3>
+    Access Management
+</h3>
+
+<p>
+Control and approve user
+access requests.
+</p>
+
+<div class="card-status">
+    ● 2 Permissions
+</div>
+
+</div>
+
+
+
+<div class="permission-card">
+
+<div class="permission-icon">
+    
+</div>
+
+<h3>
+    Audit
+</h3>
+
+<p>
+View identity and access
+audit activities.
+</p>
+
+<div class="card-status">
+    ● 1 Permission
+</div>
+
+</div>
+
+
+
+<div class="permission-card">
+
+<div class="permission-icon">
+    ›_
+</div>
+
+<h3>
+    API Access
+</h3>
+
+<p>
+Control API based access
+to IAM resources.
+</p>
+
+<div class="card-status">
+    ● 1 Permission
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</section>
+
+</main>
+
+</div>
+
+
+
+<div class="modal-backdrop" id="permissionModal" hidden>
+    <section class="permission-modal" role="dialog" aria-modal="true" aria-labelledby="permissionModalTitle">
+        <h2 id="permissionModalTitle">Add Permission</h2>
+        <form class="permission-form" id="permissionForm">
+            <label>
+                Permission name
+                <input name="name" type="text" maxlength="80" required autocomplete="off" placeholder="e.g. Export Reports">
+            </label>
+            <label>
+                Permission code
+                <input name="code" type="text" maxlength="80" required pattern="[A-Za-z][A-Za-z0-9_]*" title="Start with a letter; use only letters, numbers, and underscores." autocomplete="off" placeholder="e.g. REPORT_EXPORT">
+            </label>
+            <label>
+                Category
+                <input name="category" type="text" maxlength="60" required autocomplete="off" placeholder="e.g. Reports">
+            </label>
+            <label>
+                Access
+                <input name="access" type="text" maxlength="60" required autocomplete="off" placeholder="e.g. Export">
+            </label>
+            <p class="permission-form-error" id="permissionFormError" role="alert" hidden></p>
+            <div class="permission-form-actions">
+                <button type="button" id="cancelPermissionButton">Cancel</button>
+                <button type="submit">Save Permission</button>
+            </div>
+        </form>
+    </section>
+</div>
+
+
+<script>
+
+
+const permissionTable = document.getElementById("permissionTable");
+const permissionModal = document.getElementById("permissionModal");
+const permissionForm = document.getElementById("permissionForm");
+const permissionFormError = document.getElementById("permissionFormError");
+const addPermissionButton = document.getElementById("addPermissionButton");
+const totalPermissionCount = document.getElementById("totalPermissionCount");
+const permissionStorageKey = "blackrock_custom_permissions";
+let savedPermissions = [];
+
+function setPermissionFormError(message) {
+    permissionFormError.textContent = message;
+    permissionFormError.hidden = !message;
+}
+
+function closePermissionModal() {
+    permissionModal.hidden = true;
+    addPermissionButton.focus();
+}
+
+function createPermissionRow(permission) {
+    const row = document.createElement("tr");
+    const cells = [
+        { className: "permission-name", value: permission.name },
+        { className: "permission-code", value: permission.code },
+        { className: "category", value: permission.category },
+        { className: "allowed", value: permission.access },
+    ];
+
+    cells.forEach(({ className, value }) => {
+        const cell = document.createElement("td");
+        cell.className = className;
+        cell.textContent = value;
+        row.appendChild(cell);
+    });
+
+    const statusCell = document.createElement("td");
+    const badge = document.createElement("span");
+    badge.className = "badge";
+    badge.textContent = "ACTIVE";
+    statusCell.appendChild(badge);
+    row.appendChild(statusCell);
+    return row;
+}
+
+function updatePermissionCount() {
+    totalPermissionCount.textContent = String(permissionTable.rows.length);
+}
+
+function searchPermissions() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    permissionTable.querySelectorAll("tr").forEach((row) => {
+        row.style.display = row.textContent.toLowerCase().includes(input) ? "" : "none";
+    });
+}
+
+try {
+    const stored = localStorage.getItem(permissionStorageKey);
+    if (stored) {
+        const parsed = JSON.parse(stored);
+        if (!Array.isArray(parsed) || parsed.some((permission) =>
+            !permission ||
+            typeof permission.name !== "string" ||
+            typeof permission.code !== "string" ||
+            typeof permission.category !== "string" ||
+            typeof permission.access !== "string"
+        )) {
+            throw new Error("Saved permissions have an invalid format.");
+        }
+
+        savedPermissions = parsed;
+        savedPermissions.forEach((permission) => permissionTable.appendChild(createPermissionRow(permission)));
+    }
+} catch (error) {
+    console.error("Could not load saved permissions:", error);
+    setPermissionFormError("Saved permissions could not be loaded. Check browser storage and reload the page.");
+}
+
+updatePermissionCount();
+
+document.getElementById("searchInput").addEventListener("input", searchPermissions);
+addPermissionButton.addEventListener("click", () => {
+    permissionForm.reset();
+    setPermissionFormError("");
+    permissionModal.hidden = false;
+    permissionForm.elements.name.focus();
+});
+
+document.getElementById("cancelPermissionButton").addEventListener("click", closePermissionModal);
+permissionModal.addEventListener("click", (event) => {
+    if (event.target === permissionModal) closePermissionModal();
+});
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !permissionModal.hidden) closePermissionModal();
+});
+
+permissionForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    setPermissionFormError("");
+
+    const formData = new FormData(permissionForm);
+    const permission = {
+        name: String(formData.get("name")).trim(),
+        code: String(formData.get("code")).trim().toUpperCase(),
+        category: String(formData.get("category")).trim(),
+        access: String(formData.get("access")).trim(),
+    };
+
+    if (Object.values(permission).some((value) => !value)) {
+        setPermissionFormError("Complete all permission fields before saving.");
+        return;
+    }
+
+    const duplicateCode = Array.from(permissionTable.querySelectorAll(".permission-code"))
+        .some((cell) => cell.textContent.trim().toUpperCase() === permission.code);
+    if (duplicateCode) {
+        setPermissionFormError("A permission with this code already exists.");
+        return;
+    }
+
+    const updatedPermissions = [...savedPermissions, permission];
+    try {
+        localStorage.setItem(permissionStorageKey, JSON.stringify(updatedPermissions));
+    } catch (error) {
+        console.error("Could not save permission:", error);
+        setPermissionFormError("Permission could not be saved to this browser. Check available storage and try again.");
+        return;
+    }
+
+    savedPermissions = updatedPermissions;
+    permissionTable.appendChild(createPermissionRow(permission));
+    updatePermissionCount();
+    searchPermissions();
+    closePermissionModal();
+});
+
+
+</script>
+
+
+<script src="rbac.js"></script>
+</body>
+
+</html>

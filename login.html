@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACK ROCK Enterprise IAM - Login</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+* { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    color-scheme: light;
+    --page: #e8ddc8;
+    --paper: #faf7f0;
+    --paper-raised: #fffdf8;
+    --ink: #30271f;
+    --muted: #75695b;
+    --accent: #8a5b3d;
+    --accent-dark: #68432f;
+    --line: #dfd2bf;
+}
+
+body {
+    font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important;
+    background:
+        radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.72), transparent 38%),
+        radial-gradient(circle at 86% 78%, rgba(184, 153, 116, 0.24), transparent 40%),
+        var(--page);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.login-bg {
+    position: fixed;
+    inset: 0;
+    background:
+        linear-gradient(rgba(118, 91, 63, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(118, 91, 63, 0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    pointer-events: none;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 480px;
+    padding: 25px;
+    position: relative;
+}
+
+.login-card {
+    background: rgba(250, 247, 240, 0.94);
+    border: 1px solid rgba(138, 91, 61, 0.16);
+    border-radius: 20px;
+    padding: 42px;
+    box-shadow: 0 24px 64px rgba(73, 54, 35, 0.16), 0 2px 8px rgba(73, 54, 35, 0.06);
+    backdrop-filter: blur(14px);
+}
+
+.logo-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo-circle {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 15px;
+    border: 1px solid rgba(138, 91, 61, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 29px;
+    background: #eee3d2;
+    box-shadow: 0 8px 22px rgba(105, 72, 45, 0.12);
+}
+
+.logo-section h1 {
+    font-size: 25px;
+    letter-spacing: 1px;
+    color: var(--ink);
+}
+
+.logo-section small {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 3px;
+}
+
+.login-title {
+    margin-bottom: 28px;
+}
+
+.login-title h2 {
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.login-title p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    color: #5f4a38;
+    font-size: 11px;
+    letter-spacing: .5px;
+    margin-bottom: 9px;
+    font-weight: 700;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+}
+
+.input-group input {
+    width: 100%;
+    height: 50px;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--ink);
+    padding: 0 45px 0 16px;
+    outline: none;
+    font-size: 14px;
+    transition: .2s;
+}
+
+.input-group input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(138, 91, 61, 0.12);
+}
+
+.input-group input::placeholder {
+    color: #998d7e;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.password-toggle:hover {
+    color: var(--accent-dark);
+}
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0 25px;
+    gap: 12px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.remember input {
+    accent-color: var(--accent);
+}
+
+.forgot,
+.account-link {
+    color: var(--accent-dark);
+    font-size: 11px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.forgot:hover,
+.account-link:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #795039, #966a49);
+    color: #fffaf1;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+    letter-spacing: 1px;
+    box-shadow: 0 7px 18px rgba(105, 72, 45, 0.2);
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(105, 72, 45, 0.26);
+    background: linear-gradient(135deg, #68432f, #8a5b3d);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.login-btn:disabled {
+    opacity: 0.72;
+    cursor: not-allowed;
+}
+
+.demo-login {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+}
+
+.demo-login-title {
+    margin: 0 0 11px;
+    color: var(--muted);
+    font-size: 11px;
+    text-align: center;
+}
+
+.demo-login-buttons {
+    display: flex;
+}
+
+.demo-login-button {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 6px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--paper-raised);
+    color: var(--accent-dark);
+    font: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, border-color .2s, transform .2s;
+}
+
+.demo-login-button:hover {
+    transform: translateY(-1px);
+    background: #f3ede2;
+    border-color: #c9ae8d;
+}
+
+.security {
+    margin-top: 25px;
+    border: 1px solid #e5dac8;
+    border-radius: 10px;
+    padding: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f3ede2;
+}
+
+.security-icon {
+    color: #58704b;
+}
+
+.security-text {
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 22px;
+    color: #827567;
+    font-size: 9px;
+    letter-spacing: .5px;
+}
+
+.error-message {
+    display: none;
+    color: #8c3029;
+    background: #f8e9e4;
+    border: 1px solid #e8c4ba;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 18px;
+    font-size: 11px;
+}
+
+.error-message.show {
+    display: block;
+}
+
+/* ================= SUCCESS ================= */
+
+.success-message {
+    display: none;
+    color: #41603b;
+    background: #edf3e8;
+    border: 1px solid #cbd9c1;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 18px;
+    font-size: 11px;
+}
+
+.success-message.show {
+    display: block;
+}
+
+.account-prompt {
+    margin-top: 18px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid rgba(138, 91, 61, 0.35);
+    outline-offset: 2px;
+}
+
+@media(max-width: 500px) {
+
+    .login-wrapper {
+        padding: 15px;
+    }
+
+    .login-card {
+        padding: 28px 22px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-bg"></div>
+
+<div class="login-wrapper">
+
+    <div class="login-card">
+
+        <!-- LOGO -->
+
+        <div class="logo-section">
+
+            <div class="logo-circle">
+                
+            </div>
+
+            <h1>BLACK ROCK </h1>
+
+            
+
+        </div>
+
+
+        <!-- TITLE -->
+
+        <div class="login-title">
+
+            <h2>Welcome Back</h2>
+
+            <p>
+                Sign in to access the BLACK ROCK Enterprise
+                Identity & Access Management Console.
+            </p>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div class="error-message" id="errorMessage" role="alert" aria-live="assertive">
+            Invalid username or password.
+        </div>
+
+
+        <!-- SUCCESS -->
+
+        <div class="success-message" id="successMessage" role="status" aria-live="polite">
+            Authentication successful. Redirecting...
+        </div>
+
+
+        <!-- LOGIN FORM -->
+
+        <form id="loginForm">
+
+            <!-- USERNAME -->
+
+            <div class="input-group">
+
+                <label for="username">USERNAME</label>
+
+                <div class="input-wrapper">
+
+                    
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="input-group">
+
+                <label for="password">PASSWORD</label>
+
+                <div class="input-wrapper">
+
+                    
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword()"
+                        id="toggleBtn"
+                        aria-label="Show password"
+                        aria-pressed="false">
+                        Show
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- OPTIONS -->
+
+            <div class="login-options">
+
+                <label class="remember">
+
+                    <input
+                        type="checkbox"
+                        id="remember">
+
+                    Remember me
+
+                </label>
+
+                <a class="forgot" href="forget-password.html">
+                    Forgot password?
+                </a>
+
+            </div>
+
+
+            <!-- LOGIN -->
+
+            <button
+                type="submit"
+                class="login-btn"
+                id="loginBtn">
+
+                SIGN IN
+
+            </button>
+        </form>
+
+        <section class="demo-login" aria-label="Demo sign in options">
+            <p class="demo-login-title">Demo access — no password required</p>
+            <div class="demo-login-buttons" style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="demo-login-button" type="button" onclick="startDemoSession('Global Admin')" style="background:linear-gradient(135deg,#795039,#966a49);color:#fff;border-color:rgba(255,255,255,0.25);font-weight:700;">Global Admin (Full Access)</button>
+                <button class="demo-login-button" type="button" onclick="startDemoSession('Admin')">Admin</button>
+                <button class="demo-login-button" type="button" onclick="startDemoSession('Manager')">Manager</button>
+                <button class="demo-login-button" type="button" onclick="startDemoSession('Developer')">Developer</button>
+                <button class="demo-login-button" type="button" onclick="startDemoSession('Security Analyst')">Security Analyst</button>
+                <button class="demo-login-button" type="button" onclick="startDemoSession('User')">User (Restricted)</button>
+            </div>
+        </section>
+
+        <p class="account-prompt">
+            Need an account? <a href="signup.html" class="account-link">Create one</a>
+        </p>
+
+        <!-- SECURITY -->
+
+        <div class="security">
+
+            
+
+            <div class="security-text">
+                Protected by Zero-Trust IAM, MFA enforcement
+                and continuous access verification.
+            </div>
+
+        </div>
+
+
+        <div class="footer">
+            BLACK ROCK • SECURE ACCESS GATEWAY
+        </div>
+
+    </div>
+
+</div>
+
+<script src="twilio-mfa.js?v=20261024_03"></script>
+<script>
+
+/* =========================================================
+                    PASSWORD TOGGLE
+========================================================= */
+
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    const toggle =
+        document.getElementById("toggleBtn");
+
+    if (password.type === "password") {
+
+        password.type = "text";
+        toggle.textContent = "Hide";
+        toggle.setAttribute("aria-label", "Hide password");
+        toggle.setAttribute("aria-pressed", "true");
+
+    } else {
+
+        password.type = "password";
+        toggle.textContent = "Show";
+        toggle.setAttribute("aria-label", "Show password");
+        toggle.setAttribute("aria-pressed", "false");
+
+    }
+
+}
+
+if (new URLSearchParams(window.location.search).has("registered")) {
+    const successMessage = document.getElementById("successMessage");
+    successMessage.textContent = "Account created. Sign in with your email address and password.";
+    successMessage.classList.add("show");
+} else if (new URLSearchParams(window.location.search).has("reset")) {
+    const successMessage = document.getElementById("successMessage");
+    if (successMessage) {
+        successMessage.textContent = "Password updated successfully. Please sign in with your new password.";
+        successMessage.classList.add("show");
+    }
+}
+
+
+/* =========================================================
+                        LOGIN
+========================================================= */
+
+document
+.getElementById("loginForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const username =
+        document.getElementById("username").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const error =
+        document.getElementById("errorMessage");
+
+    const success =
+        document.getElementById("successMessage");
+
+    const loginBtn =
+        document.getElementById("loginBtn");
+
+    error.classList.remove("show");
+    error.textContent = "Invalid username or password.";
+    success.classList.remove("show");
+
+    // Check credentials: Admin or Registered User
+    let userRecord = null;
+
+    if ((username.toLowerCase() === "naveen124@gmail.com" || username.toLowerCase() === "naveen") && (password === "admin123" || password === "naveen123" || password === "password123")) {
+        userRecord = {
+            name: "Naveen",
+            email: "naveen124@gmail.com",
+            role: "GLOBAL_ADMIN",
+            mfa: "Enabled",
+            phoneNumber: "+1234567890"
+        };
+    } else if ((username.toLowerCase() === "admin" || username.toLowerCase() === "admin@blackrock.com") && (password === "admin123" || password === "admin")) {
+        userRecord = {
+            name: "Alexander Vance (Admin)",
+            email: "admin@blackrock.com",
+            role: "GLOBAL_ADMIN",
+            mfa: "Enabled",
+            phoneNumber: "+1234567890"
+        };
+    } else {
+        try {
+            const storedUsers = localStorage.getItem("blackrockUsers");
+            const users = storedUsers ? JSON.parse(storedUsers) : [];
+
+            if (!Array.isArray(users)) {
+                throw new TypeError("Saved accounts must be a list.");
+            }
+
+            userRecord = users.find(user => {
+                if (!user || typeof user !== "object") {
+                    return false;
+                }
+
+                const matchingUsername = [user.name, user.email].some(value =>
+                    typeof value === "string" &&
+                    value.trim().toLowerCase() === username.toLowerCase()
+                );
+
+                return matchingUsername &&
+                    typeof user.password === "string" &&
+                    user.password === password;
+            }) || null;
+        } catch (storageError) {
+            error.textContent = "Unable to read saved accounts. Please try again or contact your administrator.";
+            error.classList.add("show");
+            loginBtn.disabled = false;
+            loginBtn.textContent = "SIGN IN";
+            return;
+        }
+    }
+
+    if (!userRecord) {
+        error.classList.add("show");
+        loginBtn.disabled = false;
+        loginBtn.textContent = "SIGN IN";
+        return;
+    }
+
+    // Step 2: Check MFA Requirement
+    const requiresMfa = !userRecord.mfa || userRecord.mfa === "Enabled";
+
+    if (requiresMfa) {
+        const userEmail = userRecord.email || (username.includes("@") ? username : "naveen124@gmail.com");
+        const phone = userRecord.phoneNumber || "+1234567890";
+
+        if (!window.TwilioMFA || typeof window.TwilioMFA.showVerificationModal !== "function") {
+            error.textContent = "The MFA service is unavailable. Please refresh the page and try again.";
+            error.classList.add("show");
+            loginBtn.disabled = false;
+            loginBtn.textContent = "SIGN IN";
+            return;
+        }
+
+        loginBtn.disabled = true;
+        loginBtn.textContent = "VERIFYING 2FA...";
+
+        try {
+            window.TwilioMFA.showVerificationModal({
+                title: "Black Rock 2FA Challenge",
+                subtitle: "Email OTP Multi-Factor Authentication",
+                email: userEmail,
+                phoneNumber: phone,
+                user: userRecord.name || username,
+                action: "Portal Login",
+                onSuccess: () => {
+                    success.classList.add("show");
+                    success.textContent = "Email OTP verified. Entering IAM Portal...";
+                    loginBtn.textContent = "AUTHENTICATED";
+
+                    sessionStorage.setItem("honAuthenticated", "true");
+                    sessionStorage.setItem("honUsername", userRecord.name || username);
+                    sessionStorage.setItem("honUserRole", userRecord.role || "GLOBAL_ADMIN");
+
+                    setTimeout(function() {
+                        window.location.href = "index.html";
+                    }, 800);
+                },
+                onCancel: () => {
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = "SIGN IN";
+                }
+            });
+        } catch (mfaError) {
+            error.textContent = "Unable to start MFA verification. Please try again.";
+            error.classList.add("show");
+            loginBtn.disabled = false;
+            loginBtn.textContent = "SIGN IN";
+        }
+
+    } else {
+        // Direct login if MFA is disabled
+        success.classList.add("show");
+        loginBtn.disabled = true;
+        loginBtn.textContent = "AUTHENTICATING...";
+
+        sessionStorage.setItem("honAuthenticated", "true");
+        sessionStorage.setItem("honUsername", userRecord.name || username);
+        sessionStorage.setItem("honUserRole", userRecord.role || "USER");
+
+        setTimeout(function() {
+            window.location.href = "index.html";
+        }, 1000);
+    }
+
+});
+
+</script>
+
+<script>
+function startDemoSession(role) {
+    sessionStorage.setItem("honAuthenticated", "true");
+    sessionStorage.setItem("honUsername", `${role} Demo`);
+    sessionStorage.setItem("honUserRole", role.toUpperCase().replace(/\s+/g, '_'));
+    window.location.href = "index.html";
+}
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BLACK ROCK Dashboard</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+* { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important;
+}
+
+body {
+    min-height: 100vh;
+    color: #30271f;
+    background:
+        radial-gradient(circle at 14% 16%, rgba(255, 255, 255, 0.72), transparent 38%),
+        radial-gradient(circle at 88% 84%, rgba(184, 153, 116, 0.18), transparent 40%),
+        #e8ddc8;
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+/* =========================
+   MAIN LAYOUT
+========================= */
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 264px;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(250, 247, 240, 0.96) !important;
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border-right: 1px solid #dfd2bf !important;
+    box-shadow: 0 8px 24px rgba(73, 54, 35, 0.08) !important;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 22px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #dfd2bf !important;
+}
+
+.logo-box {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #eee3d2 !important;
+    border: 1px solid rgba(138, 91, 61, 0.26) !important;
+    color: #795039 !important;
+    font-weight: bold;
+    font-size: 20px;
+    box-shadow: 0 4px 14px rgba(105, 72, 45, 0.1) !important;
+}
+
+.logo-wordmark {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    line-height: 1.1;
+}
+
+.logo-wordmark span:first-child {
+    color: #30271f !important;
+}
+
+.logo-wordmark span:last-child {
+    color: #795039 !important;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+}
+
+.menu-title {
+    color: #795039 !important;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #5f5143 !important;
+    padding: 12px 14px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+}
+
+.menu a:hover {
+    color: #30271f !important;
+    background: #f1e9dc !important;
+    border-color: #dfd2bf !important;
+    box-shadow: 0 4px 12px rgba(105, 72, 45, 0.08) !important;
+    transform: translateX(3px);
+}
+
+.menu a.active,
+.menu a.active span {
+    color: #fffaf1 !important;
+    background: linear-gradient(135deg, #795039, #966a49) !important;
+    border-color: rgba(105, 72, 45, 0.35) !important;
+    box-shadow: 0 6px 20px rgba(105, 72, 45, 0.3) !important;
+}
+
+.menu a .nav-icon {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    color: #795039 !important;
+    transition: all 0.2s ease;
+}
+
+.menu a:hover .nav-icon {
+    color: #5f4130 !important;
+}
+
+.menu a.active .nav-icon {
+    color: #fffaf1 !important;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid #dfd2bf !important;
+}
+
+.sidebar-footer .sign-out {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border: 1px solid rgba(248, 113, 113, 0.25);
+    border-radius: 12px;
+    color: #f87171;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    background: rgba(248, 113, 113, 0.08);
+    transition: all 0.2s ease;
+}
+
+.sidebar-footer .sign-out:hover {
+    color: #ffffff;
+    background: rgba(248, 113, 113, 0.25);
+    border-color: #f87171;
+    box-shadow: 0 0 16px rgba(248, 113, 113, 0.3);
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.main {
+    margin-left: 264px;
+    width: calc(100% - 264px);
+    padding: 25px 35px;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+    min-height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    margin-bottom: 25px;
+    border-radius: 18px;
+    background: rgba(250, 247, 240, 0.96) !important;
+    backdrop-filter: blur(25px);
+    border: 1px solid #dfd2bf !important;
+    box-shadow: 0 8px 24px rgba(73, 54, 35, 0.08) !important;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fffdf8 !important;
+    border: 1px solid #dfd2bf !important;
+    border-radius: 12px;
+    padding: 8px 16px;
+    width: 320px;
+    box-shadow: inset 0 1px 3px rgba(73, 54, 35, 0.04) !important;
+}
+
+.search-box input {
+    width: 100%;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    color: #30271f !important;
+    font-size: 14px;
+}
+
+.search-box input::placeholder {
+    color: #8c7d6e !important;
+}
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.full-access-top-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+    transition: all 0.2s ease;
+}
+
+.full-access-top-btn:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(16, 185, 129, 0.5);
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 14px;
+    border-radius: 12px;
+    background: #eee3d2 !important;
+    border: 1px solid #dfd2bf !important;
+    box-shadow: 0 2px 8px rgba(73, 54, 35, 0.06) !important;
+}
+
+.admin-avatar {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #795039, #966a49) !important;
+    color: #fffaf1 !important;
+    font-weight: 700;
+    font-size: 15px;
+    box-shadow: 0 0 15px rgba(105, 72, 45, 0.3) !important;
+}
+
+.admin-info {
+    line-height: 1.25;
+}
+
+.admin-info b {
+    font-size: 14px;
+    color: #30271f !important;
+    display: block;
+}
+
+.admin-info small {
+    font-size: 11px;
+    color: #795039 !important;
+    font-weight: 700;
+}
+
+/* =========================
+   PAGE HERO
+========================= */
+
+.hero-banner {
+    padding: 28px 32px;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    background: rgba(250, 247, 240, 0.94) !important;
+    border: 1px solid #dfd2bf !important;
+    box-shadow: 0 12px 32px rgba(73, 54, 35, 0.1) !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.hero-banner h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    color: #604a3f !important;
+    background: linear-gradient(90deg, #604a3f, #8a5b3d, #ab5d2c) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+.hero-banner p {
+    color: #75695b !important;
+    font-size: 14px;
+}
+
+.hero-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pill-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pill-badge.active-mode {
+    background: rgba(16, 185, 129, 0.12) !important;
+    color: #287554 !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+.pill-badge.full-access-mode {
+    background: rgba(121, 80, 57, 0.14) !important;
+    color: #795039 !important;
+    border: 1px solid rgba(121, 80, 57, 0.35) !important;
+}
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.stat-card {
+    padding: 22px;
+    border-radius: 18px;
+    background: rgba(250, 247, 240, 0.94) !important;
+    border: 1px solid #dfd2bf !important;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 24px rgba(73, 54, 35, 0.08) !important;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    border-color: #c9ae8d !important;
+    box-shadow: 0 12px 28px rgba(105, 72, 45, 0.12) !important;
+}
+
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    background: #eee3d2 !important;
+    border: 1px solid rgba(138, 91, 61, 0.26) !important;
+    color: #795039 !important;
+    box-shadow: 0 4px 12px rgba(105, 72, 45, 0.08) !important;
+}
+
+.stat-title {
+    color: #75695b !important;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #30271f !important;
+    margin-bottom: 6px;
+}
+
+.stat-info {
+    color: #795039 !important;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* =========================
+   CONTENT PANELS GRID
+========================= */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: 22px;
+}
+
+.panel {
+    padding: 24px;
+    border-radius: 20px;
+    background: rgba(250, 247, 240, 0.94) !important;
+    border: 1px solid #dfd2bf !important;
+    backdrop-filter: blur(24px);
+    box-shadow: 0 12px 32px rgba(73, 54, 35, 0.08) !important;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #dfd2bf !important;
+}
+
+.panel-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #30271f !important;
+}
+
+.view-btn {
+    padding: 6px 14px;
+    border-radius: 10px;
+    border: 1px solid #dfd2bf !important;
+    background: #eee3d2 !important;
+    color: #795039 !important;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.view-btn:hover {
+    background: #e4d5c0 !important;
+    color: #5f4130 !important;
+    border-color: #c9ae8d !important;
+    box-shadow: 0 4px 12px rgba(105, 72, 45, 0.12) !important;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    color: #75695b !important;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px 12px;
+    border-bottom: 1px solid #dfd2bf !important;
+}
+
+td {
+    padding: 13px 12px;
+    border-bottom: 1px solid #eee3d2 !important;
+    color: #30271f !important;
+    font-size: 13px;
+}
+
+tbody tr:hover {
+    background: rgba(121, 80, 57, 0.04) !important;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.status-badge.active {
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.status-badge.global-admin {
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    background: rgba(251, 191, 36, 0.1);
+}
+
+.table-action-btn {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    background: rgba(121, 80, 57, 0.12);
+    border: 1px solid rgba(121, 80, 57, 0.35);
+    color: #795039;
+    transition: all 0.2s ease;
+}
+
+.table-action-btn:hover {
+    background: #795039;
+    color: #ffffff;
+}
+
+/* RECENT ACTIVITIES */
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #fdfbf7 !important;
+    border: 1px solid #dfd2bf !important;
+    transition: all 0.2s ease;
+}
+.activity-item:hover {
+    background: #f7f1e6 !important;
+    border-color: #c9ae8d !important;
+    box-shadow: 0 4px 12px rgba(105, 72, 45, 0.08) !important;
+}
+
+.activity-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.activity-icon.success {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+}
+
+.activity-icon.warning {
+    background: rgba(121, 80, 57, 0.14) !important;
+    color: #795039 !important;
+    border: 1px solid rgba(121, 80, 57, 0.25) !important;
+}
+
+.activity-icon.failed {
+    background: rgba(248, 113, 113, 0.2);
+    color: #f87171;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #30271f !important;
+    margin-bottom: 2px;
+}
+
+.activity-sub {
+    font-size: 11px;
+    color: #75695b !important;
+}
+
+.activity-time {
+    font-size: 11px;
+    color: #8c7d6e !important;
+    white-space: nowrap;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 76px;
+        padding: 20px 10px;
+    }
+    .logo-wordmark,
+    .menu-title,
+    .menu a span:last-child,
+    .sidebar-footer .sign-out span:last-child {
+        display: none;
+    }
+    .main {
+        margin-left: 76px;
+        width: calc(100% - 76px);
+        padding: 16px;
+    }
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .search-box {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-box" aria-hidden="true">BR</div>
+        <div class="logo-wordmark">
+            <span>BLACK ROCK</span>
+            <span>ENTERPRISE IAM</span>
+        </div>
+    </div>
+
+    <div class="menu-title">
+        NAVIGATION
+    </div>
+
+    <nav class="menu">
+        <a href="index.html" class="active">
+            <span class="nav-icon"></span>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="user-role.html">
+            <span class="nav-icon"></span>
+            <span>Users Directory</span>
+        </a>
+
+        <a href="roles.html">
+            <span class="nav-icon"></span>
+            <span>Roles & RBAC</span>
+        </a>
+
+        <a href="permissions.html">
+            <span class="nav-icon"></span>
+            <span>Permissions Catalog</span>
+        </a>
+
+        <a href="access-management.html">
+            <span class="nav-icon"></span>
+            <span>Access Management</span>
+        </a>
+
+        <a href="audit-trail.html">
+            <span class="nav-icon"></span>
+            <span>Audit Trail</span>
+        </a>
+
+        <a href="api-architecture.html">
+            <span class="nav-icon">›_</span>
+            <span>API & System</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a class="sign-out" href="login.html" onclick="endDemoSession()" aria-label="Sign out">
+            <span class="sign-out-icon">↪</span>
+            <span>Sign Out</span>
+        </a>
+    </div>
+
+</aside>
+
+<!-- ================= MAIN ================= -->
+<main class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+        <div class="search-box">
+            
+            <input type="text" id="dashSearchInput" placeholder="Search IAM directory..." oninput="filterDashboardUsers(this.value)">
+        </div>
+
+        <div class="topbar-actions">
+            <button class="request-access-top-btn" id="requestAccessTopBtn" onclick="window.location.href='access-management.html'" style="display:inline-flex;align-items:center;gap:6px;background:#eee3d2;color:#795039;border:1px solid #dfd2bf;padding:8px 14px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s ease;">+ Request Access</button>
+            <button class="full-access-top-btn" id="fullAccessBtn" onclick="grantFullAccess()" title="Grant yourself complete administrative privileges">
+                Give Full Access
+            </button>
+
+            <div class="admin-profile">
+                <div class="admin-avatar" id="currentAvatar">A</div>
+                <div class="admin-info">
+                    <b id="currentUserName">Alexander Vance</b>
+                    <small id="currentUserRole">GLOBAL_ADMIN (Full Access)</small>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <div class="hero-banner">
+        <div>
+            <h1>Identity & Access Management</h1>
+            <p>Enterprise Zero-Trust IAM Governance • Continuous MFA Protection • Full RBAC Access Control</p>
+        </div>
+
+        <div class="hero-badges">
+            <span class="pill-badge active-mode">
+                ● Zero Trust Active
+            </span>
+            <span class="pill-badge full-access-mode" id="fullAccessStatusBadge">
+                GLOBAL_ADMIN Privileges Active
+            </span>
+        </div>
+    </div>
+
+    <!-- ================= STAT CARDS ================= -->
+    <div class="cards-grid">
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-title">TOTAL USERS</span>
+                <div class="stat-icon"></div>
+            </div>
+            <div class="stat-number" id="dashTotalUsers">4</div>
+            <div class="stat-info">● Active Directory Accounts</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-title">ROLES & RBAC</span>
+                <div class="stat-icon"></div>
+            </div>
+            <div class="stat-number" id="dashTotalRoles">5</div>
+            <div class="stat-info">Full Access RBAC Policies</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-title">SYSTEM PERMISSIONS</span>
+                <div class="stat-icon"></div>
+            </div>
+            <div class="stat-number" id="dashTotalPerms">13</div>
+            <div class="stat-info">Fine-Grained Capabilities</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-title">AUDIT LOGS</span>
+                <div class="stat-icon"></div>
+            </div>
+            <div class="stat-number" id="dashTotalAudits">8</div>
+            <div class="stat-info">Security Verified Events</div>
+        </div>
+
+    </div>
+
+    <!-- ================= CONTENT GRID ================= -->
+    <div class="content-grid">
+
+        <!-- RECENT USERS -->
+        <div class="panel">
+            <div class="panel-header">
+                <h2>Users & Governance Directory</h2>
+                <a href="user-role.html" class="view-btn">View All Users Directory →</a>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>USER</th>
+                        <th>EMAIL</th>
+                        <th>ROLE / ACCESS</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody id="dashUsersTable">
+                    <!-- Populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- RECENT ACTIVITIES -->
+        <div class="panel">
+            <div class="panel-header">
+                <h2>Real-Time Audit Trail</h2>
+                <a href="audit-trail.html" class="view-btn">View Audit Logs →</a>
+            </div>
+
+            <div class="activity-list" id="dashActivitiesList">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+</div>
+
+<script src="twilio-mfa.js?v=20261024_03"></script>
+<script src="rbac.js"></script>
+
+<script>
+// ==========================================
+// Session & Full Access Management
+// ==========================================
+
+function getActiveRole() {
+    return sessionStorage.getItem("honUserRole") || "GLOBAL_ADMIN";
+}
+
+function getActiveUsername() {
+    return sessionStorage.getItem("honUsername") || "Alexander Vance";
+}
+
+function endDemoSession() {
+    sessionStorage.removeItem("honAuthenticated");
+    sessionStorage.removeItem("honUsername");
+    sessionStorage.removeItem("honUserRole");
+}
+
+function grantFullAccess() {
+    sessionStorage.setItem("honAuthenticated", "true");
+    sessionStorage.setItem("honUserRole", "GLOBAL_ADMIN");
+    sessionStorage.setItem("honUsername", "Alexander Vance (Global Admin)");
+
+    // Ensure users in directory exist and first user is GLOBAL_ADMIN
+    const users = getAllUsers();
+    if (users.length > 0) {
+        users[0].role = "GLOBAL_ADMIN";
+        saveAllUsers(users);
+    }
+
+    if (window.TwilioMFA) {
+        TwilioMFA.logAudit(
+            "Alexander Vance",
+            "Privilege Elevation: GLOBAL_ADMIN (Full Access)",
+            "IAM Security Gateway",
+            "SUCCESS"
+        );
+    }
+
+    updateDashboardUI();
+
+    alert("Full Access Granted!\n\nYour active session now has GLOBAL_ADMIN privileges with full access to Users Directory, Roles & RBAC, Permissions Catalog, Access Approvals, and Audit Trail.");
+}
+
+function getAllUsers() {
+    let users = [];
+    try {
+        const stored = localStorage.getItem("blackrockUsers") || localStorage.getItem("users");
+        if (stored) {
+            users = JSON.parse(stored);
+        }
+    } catch (e) {
+        users = [];
+    }
+
+    if (!users || users.length === 0) {
+        users = [
+            { name: "Naveen", email: "naveen124@gmail.com", phoneNumber: "+1234567890", role: "GLOBAL_ADMIN", status: "Active", mfa: "Enabled" },
+            { name: "Alexander Vance", email: "admin@blackrock.com", phoneNumber: "+1234567890", role: "ADMIN", status: "Active", mfa: "Enabled" },
+            { name: "Arun Kumar", email: "arun@blackrock.com", phoneNumber: "+919876543210", role: "DEVELOPER", status: "Active", mfa: "Enabled" },
+            { name: "Priya Sharma", email: "priya@blackrock.com", phoneNumber: "+919812345678", role: "MANAGER", status: "Active", mfa: "Disabled" },
+            { name: "Rahul Dev", email: "rahul@blackrock.com", phoneNumber: "+15551234567", role: "SECURITY ANALYST", status: "Active", mfa: "Enabled" }
+        ];
+        saveAllUsers(users);
+    }
+    return users;
+}
+
+function saveAllUsers(users) {
+    localStorage.setItem("blackrockUsers", JSON.stringify(users));
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+function giveUserFullAccess(userIndex) {
+    const users = getAllUsers();
+    if (userIndex >= 0 && userIndex < users.length) {
+        users[userIndex].role = "GLOBAL_ADMIN";
+        saveAllUsers(users);
+
+        if (window.TwilioMFA) {
+            TwilioMFA.logAudit(
+                "Alexander Vance",
+                `Full Access Granted (${users[userIndex].name} promoted to GLOBAL_ADMIN)`,
+                "User Directory",
+                "SUCCESS"
+            );
+        }
+
+        updateDashboardUI();
+        alert(`Full Access granted to ${users[userIndex].name}! Role elevated to GLOBAL_ADMIN.`);
+    }
+}
+
+function filterDashboardUsers(query) {
+    const search = (query || "").toLowerCase();
+    const rows = document.querySelectorAll("#dashUsersTable tr");
+    rows.forEach(r => {
+        r.style.display = r.textContent.toLowerCase().includes(search) ? "" : "none";
+    });
+}
+
+function escapeHtml(str) {
+    return String(str || '').replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+    });
+}
+
+// ==========================================
+// Dashboard Real-Time Data Render
+// ==========================================
+
+
+function renderRoleStatCards(role) {
+    const grid = document.querySelector(".cards-grid");
+    if (!grid) return;
+
+    if (role === "MANAGER") {
+        grid.innerHTML = `
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">TEAM MEMBERS</span><div class="stat-icon"></div></div>
+                <div class="stat-number">4</div>
+                <div class="stat-info">● Assigned to your department</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">PENDING APPROVALS</span><div class="stat-icon">⏳</div></div>
+                <div class="stat-number" id="dashPendingApprovals">2</div>
+                <div class="stat-info">● Awaiting manager review</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">APPROVED ACCESS</span><div class="stat-icon">✓</div></div>
+                <div class="stat-number">3</div>
+                <div class="stat-info">● Active resource grants</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">COMPLIANCE</span><div class="stat-icon"></div></div>
+                <div class="stat-number">100%</div>
+                <div class="stat-info">● Zero-Trust verified</div>
+            </div>
+        `;
+    } else if (role === "DEVELOPER") {
+        grid.innerHTML = `
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">AVAILABLE APIS</span><div class="stat-icon"></div></div>
+                <div class="stat-number">13</div>
+                <div class="stat-info">● REST & GraphQL Endpoints</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">ACTIVE TOKENS</span><div class="stat-icon"></div></div>
+                <div class="stat-number">2</div>
+                <div class="stat-info">● Twilio & IAM API Keys</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">RATE LIMIT</span><div class="stat-icon"></div></div>
+                <div class="stat-number">10k</div>
+                <div class="stat-info">● Requests per hour</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">GATEWAY LATENCY</span><div class="stat-icon">️</div></div>
+                <div class="stat-number">18ms</div>
+                <div class="stat-info">● High-performance gateway</div>
+            </div>
+        `;
+    } else if (role === "SECURITY_ANALYST") {
+        grid.innerHTML = `
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">AUDIT EVENTS</span><div class="stat-icon"></div></div>
+                <div class="stat-number" id="dashTotalAudits">4</div>
+                <div class="stat-info">● Real-time logged events</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">MFA ENFORCEMENT</span><div class="stat-icon"></div></div>
+                <div class="stat-number">100%</div>
+                <div class="stat-info">● Twilio Verify active</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">SECURITY ALERTS</span><div class="stat-icon"></div></div>
+                <div class="stat-number">0</div>
+                <div class="stat-info">● Zero policy violations</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">RBAC POLICIES</span><div class="stat-icon"></div></div>
+                <div class="stat-number">4</div>
+                <div class="stat-info">● Fully validated</div>
+            </div>
+        `;
+    } else if (role === "USER") {
+        grid.innerHTML = `
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">MY ACCESS LEVEL</span><div class="stat-icon"></div></div>
+                <div class="stat-number">Level 1</div>
+                <div class="stat-info">● Standard Employee Access</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">MY ACTIVE APPS</span><div class="stat-icon"></div></div>
+                <div class="stat-number">3</div>
+                <div class="stat-info">● Cloud Storage, Email, Portal</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">MY REQUESTS</span><div class="stat-icon"></div></div>
+                <div class="stat-number">1</div>
+                <div class="stat-info">● 1 Request Pending Review</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">2FA SECURITY</span><div class="stat-icon"></div></div>
+                <div class="stat-number">Active</div>
+                <div class="stat-info">● Protected via SMS OTP</div>
+            </div>
+        `;
+    } else {
+        grid.innerHTML = `
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">TOTAL USERS</span><div class="stat-icon"></div></div>
+                <div class="stat-number" id="dashTotalUsers">4</div>
+                <div class="stat-info">● Active Directory Accounts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">ROLES & RBAC</span><div class="stat-icon"></div></div>
+                <div class="stat-number" id="dashTotalRoles">4</div>
+                <div class="stat-info">● Full Access RBAC Policies</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">SYSTEM PERMISSIONS</span><div class="stat-icon"></div></div>
+                <div class="stat-number" id="dashTotalPerms">13</div>
+                <div class="stat-info">● Enforced System Rules</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-top"><span class="stat-title">AUDIT LOGS</span><div class="stat-icon"></div></div>
+                <div class="stat-number" id="dashTotalAudits">4</div>
+                <div class="stat-info">● Live Security Events</div>
+            </div>
+        `;
+    }
+}
+
+async function updateDashboardUI() {
+    const activeRole = getActiveRole();
+    const activeUsername = getActiveUsername();
+
+    const nameEl = document.getElementById("currentUserName");
+    const roleEl = document.getElementById("currentUserRole");
+    const avatarEl = document.getElementById("currentAvatar");
+    const badgeEl = document.getElementById("fullAccessStatusBadge");
+    const fullAccessTopBtn = document.getElementById("fullAccessBtn");
+    const heroP = document.querySelector(".hero-banner p");
+
+    if (nameEl) nameEl.textContent = activeUsername;
+    if (roleEl) {
+        roleEl.textContent = activeRole === "GLOBAL_ADMIN" ? "GLOBAL_ADMIN (Full Access)" : activeRole;
+    }
+    if (avatarEl) {
+        const iconMap = {
+            GLOBAL_ADMIN: "",
+            ADMIN: "",
+            MANAGER: "",
+            DEVELOPER: "",
+            SECURITY_ANALYST: "",
+            USER: ""
+        };
+        avatarEl.textContent = iconMap[activeRole] || (activeUsername[0] || "A").toUpperCase();
+    }
+
+    // Role-specific badges and descriptions
+    if (badgeEl) {
+        if (activeRole === "GLOBAL_ADMIN") {
+            badgeEl.textContent = "Level 4: GLOBAL_ADMIN Full Access";
+            badgeEl.className = "pill-badge full-access-mode";
+            if (heroP) heroP.textContent = "Enterprise Zero-Trust IAM Governance • Continuous MFA Protection • Full RBAC Access Control";
+        } else if (activeRole === "MANAGER") {
+            badgeEl.textContent = "Level 3: MANAGER (Team Approvals Active)";
+            badgeEl.className = "pill-badge active-mode";
+            if (heroP) heroP.textContent = "Team Access Governance • Request Reviews & Approvals • Departmental IAM Control";
+        } else if (activeRole === "DEVELOPER") {
+            badgeEl.textContent = "Level 2: DEVELOPER (API & Permissions)";
+            badgeEl.className = "pill-badge active-mode";
+            if (heroP) heroP.textContent = "Developer Sandbox • API Key Access • System Permissions Exploration & Integration";
+        } else if (activeRole === "SECURITY_ANALYST") {
+            badgeEl.textContent = "Level 3: SECURITY ANALYST (Audit Active)";
+            badgeEl.className = "pill-badge active-mode";
+            if (heroP) heroP.textContent = "Continuous Audit Monitoring • Compliance Verification • Zero-Trust Risk Assessment";
+        } else {
+            badgeEl.textContent = "Level 1: USER (Employee Self-Service)";
+            badgeEl.className = "pill-badge active-mode";
+            if (heroP) heroP.textContent = "Standard Employee Portal • Resource Access Requests • MFA Protection & Self-Service";
+        }
+    }
+
+    if (fullAccessTopBtn) {
+        fullAccessTopBtn.textContent = activeRole === "GLOBAL_ADMIN" ? "Full Access Active" : "Elevate to Full Access";
+        fullAccessTopBtn.style.background = "linear-gradient(135deg, #795039, #966a49)";
+        fullAccessTopBtn.onclick = grantFullAccess;
+    }
+
+    // Render Role-Tailored Stat Cards
+    renderRoleStatCards(activeRole);
+
+    // Dynamic Pending Requests Count from blackrockAccessRequests
+    let pendingReqCount = 0;
+    try {
+        const storedReqs = JSON.parse(localStorage.getItem("blackrockAccessRequests")) || [];
+        pendingReqCount = storedReqs.filter(r => r.status === 'PENDING').length;
+    } catch(e) {}
+    const pendingEl = document.getElementById("dashPendingApprovals");
+    if (pendingEl) pendingEl.textContent = pendingReqCount;
+
+    // 1. Users
+    const users = getAllUsers();
+    const usersCountEl = document.getElementById("dashTotalUsers");
+    if (usersCountEl) usersCountEl.textContent = users.length;
+
+    const usersTable = document.getElementById("dashUsersTable");
+    if (usersTable) {
+        usersTable.innerHTML = users.slice(0, 5).map((user, idx) => {
+            const isFullAccess = (user.role || "").toUpperCase() === "GLOBAL_ADMIN";
+            const roleBadge = isFullAccess
+                ? `<span class="status-badge global-admin">GLOBAL_ADMIN</span>`
+                : `<span style="font-weight:600;color:#795039;">${escapeHtml(user.role || "USER")}</span>`;
+
+            const actionBtn = isFullAccess
+                ? `<span style="color:#287554;font-size:11px;font-weight:700;">Full Access</span>`
+                : `<button class="table-action-btn" onclick="giveUserFullAccess(${idx})">Give Full Access</button>`;
+
+            return `
+                <tr>
+                    <td style="font-weight:600;color:#30271f;">${escapeHtml(user.name || "User")}</td>
+                    <td style="color:#5f5143;">${escapeHtml(user.email || "-")}</td>
+                    <td>${roleBadge}</td>
+                    <td><span class="status-badge active">● Active</span></td>
+                    <td>${actionBtn}</td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    // 2. Roles Count
+    let customRoles = [];
+    try {
+        customRoles = JSON.parse(localStorage.getItem("blackrock_custom_roles")) || [];
+    } catch (e) {}
+    const rolesCountEl = document.getElementById("dashTotalRoles");
+    if (rolesCountEl) rolesCountEl.textContent = 4 + customRoles.length;
+
+    // 3. Permissions Count
+    let customPerms = [];
+    try {
+        customPerms = JSON.parse(localStorage.getItem("blackrock_custom_permissions")) || [];
+    } catch (e) {}
+    const permsCountEl = document.getElementById("dashTotalPerms");
+    if (permsCountEl) permsCountEl.textContent = 13 + customPerms.length;
+
+    // 4. Audit Logs
+    let auditLogs = [];
+    if (window.TwilioMFA) {
+        try {
+            auditLogs = await TwilioMFA.getAuditLogs();
+        } catch (e) {}
+    }
+    if (!auditLogs || auditLogs.length === 0) {
+        try {
+            auditLogs = JSON.parse(localStorage.getItem("blackrockAuditLogs")) || [];
+        } catch (e) {}
+    }
+    if (!auditLogs || auditLogs.length === 0) {
+        auditLogs = [
+            { user: "Alexander Vance", action: "Elevated to GLOBAL_ADMIN (Full Access)", resource: "IAM Portal", time: "Just now", status: "SUCCESS" },
+            { user: "Arun Kumar", action: "Access Request (Production API)", resource: "Production API", time: "5 min ago", status: "WARNING" },
+            { user: "Priya Sharma", action: "Role Verified (MANAGER)", resource: "Database", time: "12 min ago", status: "SUCCESS" },
+            { user: "Alexander Vance", action: "Step-Up 2FA Verified (Twilio SMS)", resource: "Admin Security", time: "25 min ago", status: "SUCCESS" }
+        ];
+    }
+
+    const auditsCountEl = document.getElementById("dashTotalAudits");
+    if (auditsCountEl) auditsCountEl.textContent = auditLogs.length;
+
+    const activitiesList = document.getElementById("dashActivitiesList");
+    if (activitiesList) {
+        activitiesList.innerHTML = auditLogs.slice(0, 4).map(log => {
+            const statusUpper = (log.status || 'SUCCESS').toUpperCase();
+            let iconClass = 'success';
+            let iconSymbol = '✓';
+            if (statusUpper === 'WARNING') { iconClass = 'warning'; iconSymbol = ''; }
+            if (statusUpper === 'FAILED' || statusUpper === 'DENIED') { iconClass = 'failed'; iconSymbol = '✕'; }
+
+            return `
+                <div class="activity-item">
+                    <div class="activity-icon ${iconClass}">
+                        ${iconSymbol}
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">${escapeHtml(log.action || "Audit Event")}</div>
+                        <div class="activity-sub">${escapeHtml(log.user || "System")} • ${escapeHtml(log.resource || "IAM Security")}</div>
+                    </div>
+                    <div class="activity-time">${escapeHtml(log.time || "Recently")}</div>
+                </div>
+            `;
+        }).join('');
+    }
+}
+
+// Initial Run
+updateDashboardUI();
+</script>
+
+</body>
+</html>

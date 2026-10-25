@@ -1,0 +1,1515 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BLACK ROCK Enterprise IAM - Audit Trail</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+* { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important; }
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important;
+    background: #020818;
+    color: white;
+}
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    width: 264px;
+    min-height: 100vh;
+    background: #080808;
+    border-right: 1px solid rgba(56,189,248,0.15);
+    padding: 20px;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(56,189,248,0.12);
+}
+
+.logo-icon {
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid #38bdf8;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #38bdf8;
+    font-size: 20px;
+}
+
+.logo h2 {
+    margin: 0;
+}
+
+.logo small {
+    color: #38bdf8;
+    font-size: 9px;
+}
+
+.menu-title {
+    color: #38bdf8;
+    font-size: 11px;
+
+    margin: 25px 0 12px;
+}
+
+.nav {
+    display: block;
+
+    padding: 13px 15px;
+    margin-bottom: 5px;
+
+    color: #bbb;
+    text-decoration: none;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+}
+
+.nav:hover {
+    background: #151515;
+    color: white;
+}
+
+.nav.active {
+    background: #f0a000;
+    color: #080808;
+
+    box-shadow:
+        0 8px 25px rgba(240,160,0,.25);
+}
+
+
+/* ================= MAIN ================= */
+
+.main {
+    margin-left: 264px;
+
+    width: calc(100% - 264px);
+
+    min-height: 100vh;
+}
+
+
+/* ================= TOP BAR ================= */
+
+.topbar {
+    height: 72px;
+
+    border-bottom: 1px solid rgba(56,189,248,0.12);
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 28px;
+
+    background: #070707;
+}
+
+.top-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.top-button {
+    padding: 10px 17px;
+
+    border-radius: 10px;
+
+    border: 1px solid #705300;
+
+    background: #020818;
+
+    color: #38bdf8;
+
+    cursor: pointer;
+}
+
+
+/* ================= CONTENT ================= */
+
+.content {
+    padding: 30px;
+}
+
+
+/* ================= HERO ================= */
+
+.hero {
+    border: 1px solid #5a4200;
+
+    border-radius: 22px;
+
+    padding: 30px;
+
+    background: #020818;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.label {
+    color: #38bdf8;
+
+    border: 1px solid #8c6800;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+.live {
+    color: #00d99a;
+
+    border: 1px solid #006a50;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    margin-left: 8px;
+}
+
+.hero h1 {
+    font-size: 32px;
+
+    margin: 18px 0 8px;
+}
+
+.hero p {
+    color: #888;
+
+    font-size: 13px;
+}
+
+.export-btn {
+    background: #f0a000;
+
+    color: #080808;
+
+    border: none;
+
+    border-radius: 11px;
+
+    padding: 14px 22px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.export-btn:hover {
+    background: #38bdf8;
+}
+
+
+/* ================= SUMMARY ================= */
+
+.summary {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-top: 22px;
+}
+
+.summary-card {
+    background: #020818;
+
+    border: 1px solid #4d3900;
+
+    border-radius: 17px;
+
+    padding: 22px;
+}
+
+.summary-title {
+    color: #999;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+}
+
+.summary-number {
+    font-size: 30px;
+
+    font-weight: bold;
+
+    margin-top: 13px;
+}
+
+.summary-info {
+    color: #38bdf8;
+
+    font-size: 11px;
+
+    margin-top: 7px;
+}
+
+
+/* ================= AUDIT CARD ================= */
+
+.audit-card {
+    margin-top: 22px;
+
+    background: #020818;
+
+    border: 1px solid #4d3900;
+
+    border-radius: 18px;
+
+    padding: 25px;
+}
+
+.audit-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.audit-header h2 {
+    margin: 0;
+
+    font-size: 20px;
+}
+
+.audit-header p {
+    color: #777;
+
+    font-size: 12px;
+}
+
+
+/* ================= SEARCH ================= */
+
+.search-box {
+    display: flex;
+
+    gap: 10px;
+}
+
+.search {
+    width: 240px;
+
+    padding: 11px 14px;
+
+    border-radius: 10px;
+
+    border: 1px solid #5c4500;
+
+    background: #020818;
+
+    color: white;
+
+    outline: none;
+}
+
+.search:focus {
+    border-color: #38bdf8;
+}
+
+
+/* ================= FILTER ================= */
+
+.filter {
+    padding: 11px 14px;
+
+    border-radius: 10px;
+
+    border: 1px solid #5c4500;
+
+    background: #020818;
+
+    color: #38bdf8;
+
+    outline: none;
+}
+
+
+/* ================= TABLE ================= */
+
+.audit-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin-top: 22px;
+}
+
+.audit-table th {
+    text-align: left;
+
+    color: #38bdf8;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    padding: 15px;
+
+    border-bottom: 1px solid #3b2c00;
+}
+
+.audit-table td {
+    padding: 16px 15px;
+
+    border-bottom: 1px solid #211b08;
+
+    font-size: 13px;
+
+    color: #ccc;
+}
+
+.user {
+    color: white;
+
+    font-weight: bold;
+}
+
+.action {
+    color: #38bdf8;
+}
+
+.resource {
+    color: #999;
+}
+
+.time {
+    color: #777;
+
+    font-size: 11px;
+}
+
+
+/* ================= STATUS ================= */
+
+.status {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+}
+
+.success {
+    color: #00d99a;
+
+    border: 1px solid #006a50;
+}
+
+.warning {
+    color: #38bdf8;
+
+    border: 1px solid #6d5100;
+}
+
+.failed {
+    color: #ff5c5c;
+
+    border: 1px solid #6b2222;
+}
+
+
+/* ================= SECURITY CARD ================= */
+
+.security {
+    margin-top: 22px;
+
+    background: #020818;
+
+    border: 1px solid #4d3900;
+
+    border-radius: 18px;
+
+    padding: 25px;
+}
+
+.security h2 {
+    margin: 0;
+}
+
+.security p {
+    color: #777;
+
+    font-size: 12px;
+}
+
+.security-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+    margin-top: 20px;
+}
+
+.security-card {
+    background: #0b0b0b;
+
+    border: 1px solid #382b00;
+
+    border-radius: 14px;
+
+    padding: 20px;
+}
+
+.security-icon {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid #765700;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #38bdf8;
+
+    margin-bottom: 14px;
+}
+
+.security-card h3 {
+    margin: 0;
+
+    font-size: 14px;
+}
+
+.security-card p {
+    line-height: 1.6;
+
+    color: #777;
+
+    font-size: 11px;
+}
+
+.security-status {
+    color: #00d99a;
+
+    font-size: 10px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .main {
+        margin-left: 220px;
+
+        width: calc(100% - 220px);
+    }
+
+    .summary {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .security-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+@media(max-width:700px) {
+
+    .app {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: relative;
+
+        width: 100%;
+
+        min-height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+
+        width: 100%;
+    }
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+    .security-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+    .audit-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .search {
+        width: 100%;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- ================= LEFT SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+
+<div class="logo">
+
+    <div class="logo-icon">
+        
+    </div>
+
+    <div>
+
+        <h2>BLACK ROCK</h2>
+
+        
+    </div>
+
+</div>
+
+
+<div class="menu-title">
+        NAVIGATION
+    </div>
+
+
+<a href="index.html" class="nav">
+     &nbsp; Dashboard
+</a>
+
+
+<a href="user-role.html" class="nav">
+     &nbsp; Users Directory
+</a>
+
+
+<a href="roles.html" class="nav">
+     &nbsp; Roles & RBAC
+</a>
+
+
+<a href="permissions.html" class="nav">
+     &nbsp; Permissions Catalog
+</a>
+
+
+<a href="access-management.html" class="nav">
+     &nbsp; Access Management
+</a>
+
+
+<a href="audit-trail.html"
+   class="nav active">
+     &nbsp; Audit Trail
+</a>
+
+
+<a href="api-architecture.html" class="nav">
+    ›_ &nbsp; API & Architecture
+</a>
+
+
+
+        <div class="sidebar-footer" style="margin-top:auto;padding-top:16px;">
+            <a class="sign-out" href="login.html" onclick="endDemoSession()" aria-label="Sign out">
+                <span class="sign-out-icon">↪</span>
+                <span>Sign Out</span>
+            </a>
+        </div>
+    </aside>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+
+<!-- TOP BAR -->
+
+<header class="topbar">
+    <div style="display:flex;align-items:center;gap:14px;">
+        <a href="index.html" class="top-back-btn">← Dashboard</a>
+        <strong>BLACK ROCK</strong>
+    </div>
+
+
+    <div class="top-buttons">
+
+        <button class="top-button" onclick="window.location.href='api-architecture.html'" title="Inspect System API & Architecture">API Inspector</button>
+
+        <button class="top-button" onclick="switchSessionRole()" title="Switch active session role"> Switch Role</button>
+
+    </div>
+
+</header>
+
+
+
+<section class="content">
+
+
+<!-- ================= HERO ================= -->
+
+<div class="hero">
+
+
+<div>
+
+    <span class="label">
+        SECURITY MONITORING
+    </span>
+
+    <span class="live">
+        ● Audit System Active
+    </span>
+
+
+    <h1>
+        Audit Trail
+    </h1>
+
+
+    <p>
+        Monitor identity, authentication and
+        access activities across the IAM system.
+    </p>
+
+</div>
+
+
+<button
+    class="export-btn"
+    onclick="exportAudit()">
+
+    ↓ Export Logs
+
+</button>
+
+
+</div>
+
+
+
+<!-- ================= SUMMARY ================= -->
+
+<div class="summary">
+
+
+<div class="summary-card">
+
+    <div class="summary-title">
+        TOTAL EVENTS
+    </div>
+
+    <div
+        class="summary-number"
+        id="totalEvents">
+        8
+    </div>
+
+    <div class="summary-info">
+        Recorded Activities
+    </div>
+
+</div>
+
+
+<div class="summary-card">
+
+    <div class="summary-title">
+        SUCCESSFUL
+    </div>
+
+    <div
+        class="summary-number"
+        id="successCount">
+        6
+    </div>
+
+    <div class="summary-info">
+        Successful Events
+    </div>
+
+</div>
+
+
+<div class="summary-card">
+
+    <div class="summary-title">
+        WARNINGS
+    </div>
+
+    <div
+        class="summary-number"
+        id="warningCount">
+        1
+    </div>
+
+    <div class="summary-info">
+        Attention Required
+    </div>
+
+</div>
+
+
+<div class="summary-card">
+
+    <div class="summary-title">
+        FAILED
+    </div>
+
+    <div
+        class="summary-number"
+        id="failedCount">
+        1
+    </div>
+
+    <div class="summary-info">
+        Security Events
+    </div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- ================= AUDIT LOGS ================= -->
+
+<div class="audit-card">
+
+
+<div class="audit-header">
+
+
+<div>
+
+    <h2>
+        Recent Audit Activity
+    </h2>
+
+    <p>
+        Real-time identity and access events
+    </p>
+
+</div>
+
+
+<div class="search-box">
+
+    <input
+        type="text"
+        id="searchInput"
+        class="search"
+        placeholder="Search logs..."
+        onkeyup="searchLogs()">
+
+
+<select
+    id="statusFilter"
+    class="filter"
+    onchange="filterLogs()">
+
+    <option value="all">
+        All
+    </option>
+
+    <option value="success">
+        Success
+    </option>
+
+    <option value="warning">
+        Warning
+    </option>
+
+    <option value="failed">
+        Failed
+    </option>
+
+</select>
+
+</div>
+
+</div>
+
+
+
+<table class="audit-table">
+
+
+<thead>
+
+<tr>
+
+<th>
+    USER
+</th>
+
+<th>
+    ACTION
+</th>
+
+<th>
+    RESOURCE
+</th>
+
+<th>
+    TIME
+</th>
+
+<th>
+    STATUS
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="auditTable">
+
+
+<tr>
+
+<td class="user">
+    Alexander Vance
+</td>
+
+<td class="action">
+    User Authentication
+</td>
+
+<td class="resource">
+    IAM Portal
+</td>
+
+<td class="time">
+    Just now
+</td>
+
+<td>
+    <span class="status success">
+        SUCCESS
+    </span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="user">
+    Arun Kumar
+</td>
+
+<td class="action">
+    Access Request
+</td>
+
+<td class="resource">
+    Production API
+</td>
+
+<td class="time">
+    5 min ago
+</td>
+
+<td>
+    <span class="status warning">
+        WARNING
+    </span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="user">
+    Priya Sharma
+</td>
+
+<td class="action">
+    Role Updated
+</td>
+
+<td class="resource">
+    MANAGER
+</td>
+
+<td class="time">
+    12 min ago
+</td>
+
+<td>
+    <span class="status success">
+        SUCCESS
+    </span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="user">
+    Rahul Dev
+</td>
+
+<td class="action">
+    Access Approved
+</td>
+
+<td class="resource">
+    Admin Portal
+</td>
+
+<td class="time">
+    20 min ago
+</td>
+
+<td>
+    <span class="status success">
+        SUCCESS
+    </span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="user">
+    Karthik Raj
+</td>
+
+<td class="action">
+    Login Attempt
+</td>
+
+<td class="resource">
+    IAM Portal
+</td>
+
+<td class="time">
+    35 min ago
+</td>
+
+<td>
+    <span class="status failed">
+        FAILED
+    </span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="user">
+    Alexander Vance
+</td>
+
+<td class="action">
+    Permission Updated
+</td>
+
+<td class="resource">
+    USER_CREATE
+</td>
+
+<td class="time">
+    45 min ago
+</td>
+
+<td>
+    <span class="status success">
+        SUCCESS
+    </span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="user">
+    Arun Kumar
+</td>
+
+<td class="action">
+    User Created
+</td>
+
+<td class="resource">
+    User Directory
+</td>
+
+<td class="time">
+    1 hour ago
+</td>
+
+<td>
+    <span class="status success">
+        SUCCESS
+    </span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="user">
+    Priya Sharma
+</td>
+
+<td class="action">
+    Role Assignment
+</td>
+
+<td class="resource">
+    MANAGER
+</td>
+
+<td class="time">
+    2 hours ago
+</td>
+
+<td>
+    <span class="status success">
+        SUCCESS
+    </span>
+
+</td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+</div>
+
+
+
+<!-- ================= SECURITY MONITORING ================= -->
+
+<div class="security">
+
+
+<h2>
+    Security Monitoring
+</h2>
+
+<p>
+    Current IAM security and audit controls
+</p>
+
+
+<div class="security-grid">
+
+
+<div class="security-card">
+
+<div class="security-icon">
+    
+</div>
+
+<h3>
+    Continuous Monitoring
+</h3>
+
+<p>
+    All user and access activities
+    are continuously monitored.
+</p>
+
+<div class="security-status">
+    ● ACTIVE
+</div>
+
+</div>
+
+
+
+<div class="security-card">
+
+<div class="security-icon">
+    
+</div>
+
+<h3>
+    Authentication Logs
+</h3>
+
+<p>
+    Login and authentication events
+    are recorded for security review.
+</p>
+
+<div class="security-status">
+    ● ACTIVE
+</div>
+
+</div>
+
+
+
+<div class="security-card">
+
+<div class="security-icon">
+    
+</div>
+
+<h3>
+    Real-Time Alerts
+</h3>
+
+<p>
+    Suspicious or failed activities
+    trigger security monitoring.
+</p>
+
+<div class="security-status">
+    ● ACTIVE
+</div>
+
+</div>
+
+
+
+<div class="security-card">
+
+<div class="security-icon">
+    
+</div>
+
+<h3>
+    Immutable Logs
+</h3>
+
+<p>
+    Audit records are maintained
+    for security and compliance.
+</p>
+
+<div class="security-status">
+    ● ACTIVE
+</div>
+
+</div>
+
+
+
+<div class="security-card">
+
+<div class="security-icon">
+    
+</div>
+
+<h3>
+    RBAC Monitoring
+</h3>
+
+<p>
+    Role and permission changes
+    are tracked automatically.
+</p>
+
+<div class="security-status">
+    ● ACTIVE
+</div>
+
+</div>
+
+
+
+<div class="security-card">
+
+<div class="security-icon">
+    ✓
+</div>
+
+<h3>
+    Compliance
+</h3>
+
+<p>
+    IAM events are recorded to
+    support security compliance.
+</p>
+
+<div class="security-status">
+    ● ACTIVE
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</section>
+
+</main>
+
+</div>
+
+
+
+<script src="twilio-mfa.js?v=20261024_03"></script>
+<script src="rbac.js"></script>
+<script>
+
+let currentAuditLogs = [];
+
+async function loadAuditTrail() {
+    let logs = [];
+    if (window.TwilioMFA) {
+        logs = await TwilioMFA.getAuditLogs();
+    } else {
+        logs = JSON.parse(localStorage.getItem('blackrockAuditLogs')) || [];
+    }
+
+    if (!logs || logs.length === 0) {
+        logs = [
+            { user: "Alexander Vance (Admin)", action: "User Authentication (Twilio 2FA)", resource: "IAM Portal", time: "Just now", status: "SUCCESS" },
+            { user: "Arun Kumar", action: "Access Request (MFA Required)", resource: "Production API", time: "5 min ago", status: "WARNING" },
+            { user: "Priya Sharma", action: "Role Updated", resource: "MANAGER", time: "12 min ago", status: "SUCCESS" },
+            { user: "Alexander Vance", action: "Access Approved (MFA Step-Up)", resource: "Admin Portal", time: "20 min ago", status: "SUCCESS" },
+            { user: "Karthik Raj", action: "Login Failed (Invalid OTP)", resource: "Twilio Verify", time: "35 min ago", status: "FAILED" },
+            { user: "Alexander Vance", action: "User Created with Twilio MFA", resource: "User Directory", time: "45 min ago", status: "SUCCESS" }
+        ];
+        localStorage.setItem('blackrockAuditLogs', JSON.stringify(logs));
+    }
+
+    currentAuditLogs = logs;
+    renderAuditTable(currentAuditLogs);
+    updateGlobalCounts(currentAuditLogs);
+}
+
+function renderAuditTable(logs) {
+    const table = document.getElementById("auditTable");
+    if (!table) return;
+
+    if (logs.length === 0) {
+        table.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:30px;color:#94a3b8;">No matching audit activity found.</td></tr>`;
+        return;
+    }
+
+    table.innerHTML = logs.map(log => {
+        const statusUpper = (log.status || 'SUCCESS').toUpperCase();
+        let badgeClass = 'success';
+        if (statusUpper === 'WARNING') badgeClass = 'warning';
+        if (statusUpper === 'FAILED' || statusUpper === 'DENIED') badgeClass = 'failed';
+
+        return `
+            <tr>
+                <td class="user">${escapeHtml(log.user || 'Unknown')}</td>
+                <td class="action">${escapeHtml(log.action || '-')}</td>
+                <td class="resource">${escapeHtml(log.resource || '-')}</td>
+                <td class="time">${escapeHtml(log.time || 'Recently')}</td>
+                <td>
+                    <span class="status ${badgeClass}">
+                        ${statusUpper}
+                    </span>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+    });
+}
+
+/* ================= SEARCH ================= */
+
+function searchLogs() {
+    const search = document.getElementById("searchInput").value.toLowerCase();
+    const filter = document.getElementById("statusFilter").value.toLowerCase();
+
+    const filtered = currentAuditLogs.filter(log => {
+        const matchesSearch = (
+            (log.user || '').toLowerCase().includes(search) ||
+            (log.action || '').toLowerCase().includes(search) ||
+            (log.resource || '').toLowerCase().includes(search)
+        );
+        const logStatus = (log.status || '').toLowerCase();
+        const matchesStatus = filter === "all" || logStatus === filter;
+
+        return matchesSearch && matchesStatus;
+    });
+
+    renderAuditTable(filtered);
+}
+
+/* ================= FILTER ================= */
+
+function filterLogs() {
+    searchLogs();
+}
+
+/* ================= EXPORT ================= */
+
+function exportAudit() {
+    let url;
+    let link;
+
+    try {
+        const columns = ["User", "Action", "Resource", "Time", "Status"];
+        const rows = currentAuditLogs.map(log => [
+            log.user || '',
+            log.action || '',
+            log.resource || '',
+            log.time || '',
+            log.status || ''
+        ]);
+        const csv = [columns, ...rows]
+            .map(row => row.map(value => `"${String(value).replace(/"/g, '""')}"`).join(','))
+            .join('\r\n');
+
+        const blob = new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8" });
+        url = URL.createObjectURL(blob);
+        link = document.createElement("a");
+        link.href = url;
+        link.download = "blackrock-iam-audit-trail.csv";
+        link.hidden = true;
+        document.body.appendChild(link);
+        link.click();
+    } catch (error) {
+        console.error("Could not export audit logs:", error);
+        alert("Could not export audit logs. Please try again.");
+    } finally {
+        if (link) link.remove();
+        if (url) window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+}
+
+/* ================= COUNTS ================= */
+
+function updateGlobalCounts(logs) {
+    let success = 0;
+    let warning = 0;
+    let failed = 0;
+
+    logs.forEach(log => {
+        const s = (log.status || '').toLowerCase();
+        if (s === 'success' || s === 'approved') success++;
+        else if (s === 'warning' || s === 'pending') warning++;
+        else if (s === 'failed' || s === 'denied') failed++;
+    });
+
+    const totalEl = document.getElementById("totalEvents");
+    const succEl = document.getElementById("successCount");
+    const warnEl = document.getElementById("warningCount");
+    const failEl = document.getElementById("failedCount");
+
+    if (totalEl) totalEl.textContent = logs.length;
+    if (succEl) succEl.textContent = success;
+    if (warnEl) warnEl.textContent = warning;
+    if (failEl) failEl.textContent = failed;
+}
+
+// Initial load
+loadAuditTrail();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,691 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BLACK ROCK - Create User</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+* { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important; }
+
+/* ================================
+   MAIN BACKGROUND & LIQUID GLOW
+================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.26), transparent 38%),
+        radial-gradient(circle at 85% 80%, rgba(56, 189, 248, 0.20), transparent 36%),
+        radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.12), transparent 45%),
+        #02040a;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: rgba(37, 99, 235, 0.15);
+    filter: blur(140px);
+    top: -180px;
+    left: -180px;
+    pointer-events: none;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 450px;
+    height: 450px;
+    background: rgba(56, 189, 248, 0.14);
+    filter: blur(140px);
+    right: -180px;
+    bottom: -180px;
+    pointer-events: none;
+}
+
+/* ================================
+   CREATE USER CONTAINER
+================================ */
+
+.create-container {
+    width: 560px;
+    padding: 45px;
+    border-radius: 26px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(56, 189, 248, 0.03) 40%, rgba(10, 25, 47, 0.8) 100%);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    box-shadow:
+        0 35px 80px rgba(0,0,0,0.85),
+        0 0 50px rgba(37, 99, 235, 0.22),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 2;
+}
+
+/* ================================
+   TOP LOGO
+================================ */
+
+.logo {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 20px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+
+/* ================================
+   TITLE
+================================ */
+
+.title {
+
+    text-align: center;
+
+    font-size: 32px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 8px;
+
+    color: #ffffff;
+}
+
+.subtitle {
+
+    text-align: center;
+
+    color: #999;
+
+    font-size: 14px;
+
+    margin-bottom: 32px;
+}
+
+
+/* ================================
+   FORM
+================================ */
+
+.form-group {
+
+    margin-bottom: 20px;
+}
+
+.form-group label {
+
+    display: block;
+
+    color: #ddd;
+
+    font-size: 13px;
+
+    margin-bottom: 8px;
+
+    letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select {
+
+    width: 100%;
+
+    padding: 15px 16px;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(56,189,248,0.25);
+
+    background: rgba(0,0,0,0.55);
+
+    color: white;
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: 0.3s;
+}
+
+.form-group input::placeholder {
+
+    color: #777;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+    background: rgba(10, 25, 47, 0.85);
+}
+
+.form-group select option {
+    background: #030712;
+    color: white;
+}
+
+/* ================================
+   CREATE BUTTON
+================================ */
+
+.create-btn {
+    width: 100%;
+    padding: 17px;
+    margin-top: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 14px;
+    background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: 0.3s;
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+}
+
+.create-btn:hover {
+    background: linear-gradient(135deg, #2563eb, #38bdf8);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px rgba(56, 189, 248, 0.55);
+}
+
+.create-btn:active {
+    transform: scale(0.98);
+}
+
+/* ================================
+   SUCCESS MESSAGE
+================================ */
+
+.success-message {
+    display: none;
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    color: #34d399;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.45);
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+}
+
+/* ================================
+   BACK LINK
+================================ */
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: #38bdf8;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.back-link:hover {
+    color: #7dd3fc;
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 650px) {
+
+    .create-container {
+
+        width: calc(100% - 30px);
+
+        padding: 30px 24px;
+    }
+
+    .title {
+
+        font-size: 26px;
+    }
+}
+
+/* Beige theme overrides shared IAM styles on this standalone page. */
+:root {
+    color-scheme: light;
+    --beige-page: #e8ddc8;
+    --beige-surface: #faf7f0;
+    --beige-ink: #30271f;
+    --beige-muted: #75695b;
+    --beige-accent: #8a5b3d;
+    --beige-border: #dfd2bf;
+}
+
+html,
+body {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.76), transparent 38%),
+        radial-gradient(circle at 85% 80%, rgba(184, 153, 116, 0.22), transparent 36%),
+        var(--beige-page) !important;
+    color: var(--beige-ink) !important;
+}
+
+body,
+body * {
+    font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif !important;
+}
+
+body::before,
+body::after {
+    background: rgba(169, 132, 94, 0.12);
+}
+
+.create-container {
+    background: rgba(250, 247, 240, 0.96) !important;
+    border: 1px solid rgba(138, 91, 61, 0.2) !important;
+    box-shadow: 0 25px 60px rgba(73, 54, 35, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+}
+
+.logo {
+    background: linear-gradient(135deg, #795039, #a77a55);
+    color: #fffaf1;
+    box-shadow: 0 8px 22px rgba(105, 72, 45, 0.2);
+}
+
+.title {
+    color: var(--beige-ink);
+}
+
+.subtitle {
+    color: var(--beige-muted);
+}
+
+.form-group label {
+    color: #5f4a38;
+}
+
+.form-group input,
+.form-group select {
+    background: #fffdf8 !important;
+    border: 1px solid var(--beige-border) !important;
+    color: var(--beige-ink) !important;
+}
+
+.form-group input::placeholder {
+    color: #998d7e;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--beige-accent) !important;
+    box-shadow: 0 0 0 3px rgba(138, 91, 61, 0.12) !important;
+    background: #fffdf8 !important;
+}
+
+.form-group select option {
+    background: #fffdf8 !important;
+    color: var(--beige-ink) !important;
+}
+
+.form-group small {
+    color: var(--beige-accent) !important;
+}
+
+.create-btn,
+.create-btn:hover {
+    background: linear-gradient(135deg, #795039, #966a49) !important;
+    border-color: rgba(105, 72, 45, 0.22);
+    color: #fffaf1 !important;
+    box-shadow: 0 8px 20px rgba(105, 72, 45, 0.2) !important;
+}
+
+.create-btn:hover {
+    filter: brightness(0.94);
+}
+
+.success-message {
+    color: #41603b;
+    background: #edf3e8;
+    border-color: #cbd9c1;
+}
+
+.back-link,
+.back-link:hover {
+    color: var(--beige-accent);
+    text-shadow: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 3px solid rgba(138, 91, 61, 0.35);
+    outline-offset: 2px;
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================================
+     CREATE USER CARD
+================================ -->
+
+<div class="create-container">
+
+    <div class="logo">
+        BR
+    </div>
+
+    <h1 class="title">
+        Create User
+    </h1>
+
+    <p class="subtitle">
+        Add a new user to Users Directory
+    </p>
+
+
+    <!-- FULL NAME -->
+
+    <div class="form-group">
+
+        <label>
+            Full Name
+        </label>
+
+        <input
+            type="text"
+            id="fullName"
+            placeholder="Enter full name"
+        >
+
+    </div>
+
+
+    <!-- EMAIL -->
+
+    <div class="form-group">
+
+        <label>
+            Email Address
+        </label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter email address"
+        >
+
+    </div>
+
+
+    <!-- ROLE -->
+
+    <div class="form-group">
+
+        <label>
+            Role
+        </label>
+
+        <select id="role">
+            <option value="USER" selected>USER</option>
+            <option value="DEVELOPER">DEVELOPER</option>
+            <option value="MANAGER">MANAGER</option>
+            <option value="SECURITY_ANALYST">SECURITY ANALYST</option>
+            <option value="ADMIN">ADMIN</option>
+            <option value="GLOBAL_ADMIN">GLOBAL_ADMIN (Full Access)</option>
+        </select>
+
+    </div>
+
+
+    <!-- MFA -->
+
+    <div class="form-group">
+
+        <label>
+            Multi-Factor Authentication (Twilio Verify)
+        </label>
+
+        <select id="mfa" onchange="togglePhoneRequirement()">
+
+            <option value="Enabled" selected>
+                Enabled (Twilio SMS Verify)
+            </option>
+
+            <option value="Disabled">
+                Disabled
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- PHONE NUMBER FOR TWILIO MFA -->
+
+    <div class="form-group" id="phoneGroup">
+
+        <label>
+            Mobile Number (E.164 format with Country Code)
+        </label>
+
+        <input
+            type="tel"
+            id="phoneNumber"
+            placeholder="+1234567890 or +919876543210"
+        >
+
+        <small style="color: #38bdf8; font-size: 11px; margin-top: 6px; display: block;">
+            Required for Twilio Verify SMS 2FA passcode delivery
+        </small>
+
+    </div>
+
+
+    <!-- CREATE USER -->
+
+    <button
+        class="create-btn"
+        onclick="createUser()"
+    >
+        + Create User
+    </button>
+
+
+    <!-- SUCCESS -->
+
+    <div
+        id="successMessage"
+        class="success-message"
+    >
+        User created successfully with Twilio MFA!
+    </div>
+
+
+    <!-- BACK -->
+
+    <a
+        href="user-role.html"
+        class="back-link"
+    >
+        ← Back to Users Directory
+    </a>
+
+</div>
+
+<script src="twilio-mfa.js?v=20261024_03"></script>
+<script src="rbac.js"></script>
+
+<script>
+
+function togglePhoneRequirement() {
+    const mfa = document.getElementById("mfa").value;
+    const phoneGroup = document.getElementById("phoneGroup");
+    if (mfa === "Enabled") {
+        phoneGroup.style.display = "block";
+    } else {
+        phoneGroup.style.display = "none";
+    }
+}
+
+/* ================================
+   CREATE USER FUNCTION
+================================ */
+
+async function createUser() {
+
+    const name =
+        document.getElementById("fullName").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const role =
+        document.getElementById("role").value;
+
+    const mfa =
+        document.getElementById("mfa").value;
+
+    const phoneNumber =
+        document.getElementById("phoneNumber").value.trim();
+
+
+    /* CHECK NAME */
+
+    if (name === "") {
+        alert("Please enter full name");
+        return;
+    }
+
+
+    /* CHECK EMAIL */
+
+    if (email === "") {
+        alert("Please enter email address");
+        return;
+    }
+
+    /* CHECK PHONE IF MFA IS ENABLED */
+    if (mfa === "Enabled") {
+        if (!phoneNumber) {
+            alert("Please enter a valid phone number in E.164 format (e.g. +1234567890 or +919876543210) for Twilio Verify SMS MFA.");
+            return;
+        }
+    }
+
+
+    /* SAVE USER */
+
+    const user = {
+        name: name,
+        email: email,
+        phoneNumber: phoneNumber || "",
+        role: role,
+        status: "ACTIVE",
+        mfa: mfa,
+        createdAt: new Date().toISOString()
+    };
+
+
+    /* GET EXISTING USERS */
+
+    let users =
+        JSON.parse(
+            localStorage.getItem("blackrockUsers")
+        ) || [];
+
+    users.push(user);
+
+    localStorage.setItem(
+        "blackrockUsers",
+        JSON.stringify(users)
+    );
+
+    /* Also keep in sync with legacy 'users' key for user-role.html */
+    let legacyUsers = JSON.parse(localStorage.getItem("users")) || [];
+    legacyUsers.push({
+        name: name,
+        email: email,
+        phoneNumber: phoneNumber || "",
+        role: role.toUpperCase(),
+        status: "Active",
+        mfa: mfa
+    });
+    localStorage.setItem("users", JSON.stringify(legacyUsers));
+
+    // Record in Audit Trail
+    if (window.TwilioMFA) {
+        TwilioMFA.logAudit(
+            name,
+            `User Enrolled (${role}) - MFA ${mfa}`,
+            mfa === 'Enabled' ? `Twilio Verify (${phoneNumber})` : 'IAM Directory',
+            'SUCCESS'
+        );
+    }
+
+
+    /* SHOW SUCCESS */
+
+    document.getElementById(
+        "successMessage"
+    ).style.display = "block";
+
+
+    /* CLEAR FORM */
+
+    document.getElementById("fullName").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("phoneNumber").value = "";
+
+
+    /* SUCCESS MESSAGE */
+
+    setTimeout(function() {
+        alert(
+            "User created successfully!\n\n" +
+            "Name: " + name +
+            "\nEmail: " + email +
+            "\nRole: " + role +
+            (mfa === "Enabled" ? "\nTwilio MFA: " + phoneNumber : "\nMFA: Disabled")
+        );
+        window.location.href = "user-role.html";
+    }, 400);
+
+}
+
+
+</script>
+
+
+</body>
+</html>
